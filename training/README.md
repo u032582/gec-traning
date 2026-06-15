@@ -40,9 +40,11 @@
 
 ### 各週のフォルダの進む順番
 ```
-week0-setup  →  week1-java-basics  →  week2-sql-db  →  week3-springboot  →  week4-test-and-final
+week00-it-basics  →  week0-setup  →  week1-java-basics  →  week2-sql-db  →  week3-springboot  →  week4-test-and-final
+（IT基礎の座学）   （環境構築）
 ```
 必ずこの順で進めてください。前の週ができていないと次の週でつまずきます。
+**いちばん最初は [week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）から**です。ここで「ターミナル」「サーバー」などの言葉の意味を先に押さえてから、環境構築に進みます。
 全体の到達目標とスケジュールは [curriculum.md](curriculum.md) を見てください。
 
 ---
@@ -143,6 +145,7 @@ training/
   README.md            ← いま読んでいるこのファイル
   curriculum.md        ← 4週間の全体カリキュラムと到達目標
   for-instructors.md   ← 講師向け（新人は読まなくてよい）
+  week00-it-basics/    ← 【最初】IT基礎の座学（言葉と仕組み）
   week0-setup/         ← 環境構築の手順書
   week1-java-basics/   ← Java基礎（自習で小課題を多くこなす）
   week2-sql-db/        ← SQLとDBアクセス
@@ -158,10 +161,11 @@ training/
 
 | 困りごと | 見る場所 |
 |---|---|
+| ITの言葉・仕組みが分からない | [week00-it-basics/README.md](week00-it-basics/README.md) |
 | 環境構築でつまずいた | [week0-setup/SETUP.md](week0-setup/SETUP.md) |
 | 全体スケジュールを知りたい | [curriculum.md](curriculum.md) |
 | 課題の進め方が分からない | このファイルの「1. 進め方」 |
 | AIを使っていいか分からない | このファイルの「2. AI利用ルール」 |
 | 質問の仕方が分からない | このファイルの「3. 質問テンプレート」 |
 
-それでは、まず [week0-setup/SETUP.md](week0-setup/SETUP.md) から始めてください。頑張ってください。
+それでは、まず [week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）から始めてください。頑張ってください。
