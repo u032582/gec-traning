@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- このファイルの置き場所: src/main/resources/mapper/ProductMapper.xml -->
+<mapper namespace="com.example.training.product.ProductMapper">
+
+    <!-- IDで商品1件を取得 -->
+    <select id="findById" resultType="com.example.training.product.Product">
+        SELECT product_id,
+               name,
+               price,
+               category_id
+          FROM products
+         WHERE product_id = #{productId}
+    </select>
+
+</mapper>

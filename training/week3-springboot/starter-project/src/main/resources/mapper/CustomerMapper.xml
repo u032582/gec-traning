@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  ここに実際のSQLを書く。
+  namespace … どのMapperインターフェースに対応するかをパッケージ付きのクラス名で指定する。
+  各 <select> などの id … Mapperインターフェースの「メソッド名」と一致させる。
+  これでJavaの findById() を呼ぶと、id="findById" のSQLが実行される。
+-->
+<mapper namespace="com.example.training.customer.CustomerMapper">
+
+    <!--
+      findById に対応するSELECT文。
+      #{customerId} … Javaから渡ってきた引数（@Param("customerId")）が、ここに安全に埋め込まれる。
+        ※ 文字列をそのままつなぐのではなく「?」で渡す仕組みなので、SQLインジェクション対策にもなる。
+      resultType … 結果1行を、どのクラスに詰めるか。
+      列名（customer_id など）は map-underscore-to-camel-case の設定で
+      Javaの項目名（customerId など）に自動で対応づけられる。
+    -->
+    <select id="findById" resultType="com.example.training.customer.Customer">
+        SELECT customer_id,
+               name,
+               email,
+               created_at
+          FROM customers
+         WHERE customer_id = #{customerId}
+    </select>
+
+</mapper>

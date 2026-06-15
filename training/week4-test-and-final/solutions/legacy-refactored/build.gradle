@@ -1,0 +1,34 @@
+// =====================================================================
+// 課題3群 模範解答（改修後コード）用の最小Gradleプロジェクト
+// ---------------------------------------------------------------------
+// legacy-code と同じテスト（characterization test）をそのまま流用し、
+// 改修後も全部緑になることを確認する。build.gradle の中身は legacy-code と同一。
+// =====================================================================
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}

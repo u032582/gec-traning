@@ -1,0 +1,44 @@
+// =====================================================================
+// 課題3群（コードリーディング+小改修）用の最小Gradleプロジェクト
+// ---------------------------------------------------------------------
+// - Java 21 / JUnit5
+// - ここには「他人が書いた（ことにしている）コード」と、その振る舞いを
+//   固定するテスト（characterization test）が入っている。
+//
+// 用語メモ: characterization test（キャラクタライゼーションテスト）…
+//   「今このコードが実際にどう動くか」をそのまま写し取って固定するテスト。
+//   改修の前後で動きが変わっていないことを保証する“安全網”になる。
+//
+// 実行コマンド:
+//   ./gradlew test   … 振る舞い固定テストを実行（改修の前後で緑のままならOK）
+// =====================================================================
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit5 一式（このプロジェクトはSpring Bootを使わないので個別に指定）。
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    // JUnit5 を起動するためのランチャー（Gradle 8系で明示が必要）。
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}

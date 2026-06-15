@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 置き場所: src/main/resources/mapper/CustomerMapper.xml（雛形のものを差し替え） -->
+<mapper namespace="com.example.training.customer.CustomerMapper">
+
+    <!-- 既存: IDで1件取得 -->
+    <select id="findById" resultType="com.example.training.customer.Customer">
+        SELECT customer_id, name, email, created_at
+          FROM customers
+         WHERE customer_id = #{customerId}
+    </select>
+
+    <!--
+      追加: 顧客を登録する。
+      useGeneratedKeys="true" + keyProperty="customerId"
+        … DBが自動採番した customer_id を、渡した Customer の customerId に書き戻す。
+      created_at は DB側の DEFAULT CURRENT_TIMESTAMP に任せるので、INSERT文には書かない。
+    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="customerId"
+            parameterType="com.example.training.customer.Customer">
+        INSERT INTO customers (name, email)
+        VALUES (#{name}, #{email})
+    </insert>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  実際のSQLを書く場所（完成済み）。
+  namespace は、対応するJavaインターフェースの完全名と一致させる。
+  これにより CustomerMapper.findById() ↔ 下の <select id="findById"> が結びつく。
+-->
+<mapper namespace="com.example.CustomerMapper">
+
+    <!--
+      id="findById" : CustomerMapper.java の findById メソッドに対応。
+      parameterType="int" : 引数（顧客id）の型。
+      resultType="customer" : 結果1行を詰める型（mybatis-config.xml で別名登録した com.example.Customer）。
+      #{id} : メソッドの引数 id がここに安全に埋め込まれる（プレースホルダ）。
+              文字列連結ではなく #{} を使うのが安全（SQLインジェクション対策）。
+    -->
+    <select id="findById" parameterType="int" resultType="customer">
+        SELECT id, name, email, prefecture
+        FROM customers
+        WHERE id = #{id}
+    </select>
+
+</mapper>

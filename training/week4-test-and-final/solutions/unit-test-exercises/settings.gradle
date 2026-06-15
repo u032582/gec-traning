@@ -1,0 +1,2 @@
+// このGradleプロジェクトの名前。フォルダ名と合わせておく。
+rootProject.name = 'unit-test-exercises'

@@ -1,0 +1,53 @@
+// =====================================================================
+// 総合課題「タスク管理API」参考実装の build.gradle
+// ---------------------------------------------------------------------
+// 週3のstarterと同じ構成:
+//   - Java 21 / Spring Boot 3.3 系 / MyBatis / PostgreSQL ドライバ
+//   - spring-boot-starter-test に JUnit5 / Mockito が同梱
+//
+// よく使うコマンド:
+//   ./gradlew test       … 単体テストを実行（DB不要。Mockitoで完結する）
+//   ./gradlew bootRun    … アプリを起動（要: PostgreSQLが起動し、tasksテーブルがある）
+//   ./gradlew build      … テスト込みでビルド
+// =====================================================================
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Web（REST API）一式。
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // 入力チェック（Bean Validation）。@NotBlank などが使えるようになる。
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // MyBatis（Spring Boot 連携版）。週3と同じ。
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // PostgreSQL に接続するためのドライバ。
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // テスト一式（JUnit5 + Mockito + AssertJ）。
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // MyBatis のテスト補助（今回は使わなくても入れておくと安心）。
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}

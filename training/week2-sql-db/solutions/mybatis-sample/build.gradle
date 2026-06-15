@@ -1,0 +1,37 @@
+// 週2 最終課題: 素のMyBatis（Spring Bootなし）でPostgreSQLに接続する最小プロジェクト
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        // JDK 21 を使う
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    // MyBatis 本体（3.5系の安定版）
+    implementation 'org.mybatis:mybatis:3.5.16'
+    // PostgreSQL JDBCドライバ（42系の安定版）
+    implementation 'org.postgresql:postgresql:42.7.4'
+    // ログ出力をおとなしくするための簡易実装（無くても動くが、警告を減らせる）
+    runtimeOnly 'org.slf4j:slf4j-nop:2.0.13'
+}
+
+application {
+    // ./gradlew run で実行されるmainクラス
+    mainClass = 'com.example.App'
+}
+
+// 文字化け対策（日本語コメント/出力のため UTF-8 を明示）
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+run {
+    systemProperty 'file.encoding', 'UTF-8'
+}

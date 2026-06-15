@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--
+  MyBatis の設定ファイル（完成済み・パスワードだけ書き換える）。
+  ここに「DBへの接続情報」と「どのマッパーXMLを使うか」を書く。
+-->
+<configuration>
+
+    <!-- 型エイリアス: 長い完全クラス名の代わりに短い別名を使えるようにする。
+         これで XML 側で resultType="customer" と短く書ける。 -->
+    <typeAliases>
+        <typeAlias type="com.example.Customer" alias="customer"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!-- トランザクションは手動管理（今回はSELECTだけなので単純） -->
+            <transactionManager type="JDBC"/>
+            <!-- DB接続。POOLED = 接続を使い回す方式 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver"/>
+                <!-- 接続先: localhost の 5432番ポートの training データベース -->
+                <property name="url" value="jdbc:postgresql://localhost:5432/training"/>
+                <!-- ユーザー名（週0で使った管理ユーザー） -->
+                <property name="username" value="postgres"/>
+                <!-- ★★★ ここを自分のPostgreSQLパスワードに書き換える ★★★
+                     週0で設定したパスワードに置き換えること。
+                     例の "postgres" のままでは接続できない場合がある。 -->
+                <property name="password" value="postgres"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 使用するマッパーXMLを登録する -->
+    <mappers>
+        <mapper resource="com/example/CustomerMapper.xml"/>
+    </mappers>
+
+</configuration>

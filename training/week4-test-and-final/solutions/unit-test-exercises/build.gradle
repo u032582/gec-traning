@@ -1,0 +1,47 @@
+// =====================================================================
+// 週4 課題1群（単体テストの書き方）用の最小Gradleプロジェクト
+// ---------------------------------------------------------------------
+// - Java 21
+// - Spring Boot 3.3 系（週3のstarterと同じ系統）
+// - spring-boot-starter-test に JUnit5 / Mockito / AssertJ が同梱される
+//   ので、テスト用の依存はこれ1本でよい（個別に書く必要がない）。
+//
+// 実行コマンド:
+//   ./gradlew test        … 全テストを実行（緑になればOK）
+//   ./gradlew test --info … 詳しいログ付きで実行（詰まったとき用）
+// =====================================================================
+plugins {
+    id 'java'
+    // Spring Boot プラグインを使うと依存のバージョンを揃えてくれる（BOM）。
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    // Java 21 を使う宣言。週0で入れたJDK21に対応する。
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    // 依存ライブラリのダウンロード元（Maven Central）。
+    mavenCentral()
+}
+
+dependencies {
+    // テスト用の道具一式（JUnit5 + Mockito + AssertJ を含む）。
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    // JUnit5（JUnit Platform）でテストを動かす宣言。
+    useJUnitPlatform()
+    testLogging {
+        // どのテストが通った/落ちたかをターミナルに見やすく出す。
+        events 'passed', 'skipped', 'failed'
+    }
+}

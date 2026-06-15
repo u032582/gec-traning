@@ -1,0 +1,2 @@
+// プロジェクト名の設定。これがアプリの名前になる。
+rootProject.name = 'training-api'
