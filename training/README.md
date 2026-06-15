@@ -40,11 +40,15 @@
 
 ### 各週のフォルダの進む順番
 ```
-week00-it-basics  →  week0-setup  →  week1-java-basics  →  week2-sql-db  →  week3-springboot  →  week4-test-and-final
-（IT基礎の座学）   （環境構築）
+week0-setup  →  week00-it-basics  →  week1-java-basics  →  week2-sql-db  →  week3-springboot  →  week4-test-and-final
+（環境構築）   （IT基礎の座学）
 ```
 必ずこの順で進めてください。前の週ができていないと次の週でつまずきます。
-**いちばん最初は [week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）から**です。ここで「ターミナル」「サーバー」などの言葉の意味を先に押さえてから、環境構築に進みます。
+
+**いちばん最初は [week0-setup/SETUP.md](week0-setup/SETUP.md)（環境構築）から**です。
+この研修ドキュメントは、IDE **Antigravity** の **MPE拡張（Markdown Preview Enhanced）** できれいに表示しながら読む想定です。そのためにまず環境（WSL2・Antigravity・Git）を整え、このリポジトリを `git clone` して手元に持ってくる必要があります。環境構築の手順書（SETUP.md）の最後に、cloneとMPE表示の手順があります。
+
+環境が整ってドキュメントをAntigravityで読める状態になったら、次に [week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）で、環境構築中に出てきた「ターミナル」「コマンド」「サーバー」などの言葉の**意味と仕組みを腰を据えて理解**します。
 全体の到達目標とスケジュールは [curriculum.md](curriculum.md) を見てください。
 
 ---
@@ -145,8 +149,8 @@ training/
   README.md            ← いま読んでいるこのファイル
   curriculum.md        ← 4週間の全体カリキュラムと到達目標
   for-instructors.md   ← 講師向け（新人は読まなくてよい）
-  week00-it-basics/    ← 【最初】IT基礎の座学（言葉と仕組み）
-  week0-setup/         ← 環境構築の手順書
+  week0-setup/         ← 【最初】環境構築の手順書（＋clone・MPE表示の手順）
+  week00-it-basics/    ← IT基礎の座学（言葉と仕組み）
   week1-java-basics/   ← Java基礎（自習で小課題を多くこなす）
   week2-sql-db/        ← SQLとDBアクセス
   week3-springboot/    ← Spring BootでREST API（雛形プロジェクトあり）
@@ -168,4 +172,4 @@ training/
 | AIを使っていいか分からない | このファイルの「2. AI利用ルール」 |
 | 質問の仕方が分からない | このファイルの「3. 質問テンプレート」 |
 
-それでは、まず [week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）から始めてください。頑張ってください。
+それでは、まず [week0-setup/SETUP.md](week0-setup/SETUP.md)（環境構築）から始めてください。環境が整い、このドキュメントをAntigravityで読めるようになったら、[week00-it-basics/README.md](week00-it-basics/README.md)（IT基礎の座学）へ進みます。頑張ってください。
