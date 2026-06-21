@@ -14,13 +14,13 @@ public class Ex06Play {
         System.out.println();
 
         List<String> fruits = new ArrayList<>();
-        ex.addAll(fruits, "りんご", "みかん", "ぶどう");
+        ex.addAll(fruits, "りんご", "みかん", "ぶどう", "桃");
         System.out.println("果物リストに追加 → " + fruits);
         System.out.println("join(\" / \") → " + ex.join(fruits, " / "));
         System.out.println();
 
         List<String> filtered = ex.removeShort(fruits, 3);
-        System.out.println("3文字未満を除く → " + filtered);
+        System.out.println("3文字未満を除く → " + filtered + " （「桃」だけ消える）");
         System.out.println("\"みかん\" の位置 → " + ex.indexOf(fruits, "みかん"));
         System.out.println();
 

@@ -69,6 +69,8 @@ javac Ex06.java Ex06Play.java && java Ex06Play
 3. 画面に `りんご / みかん / ぶどう` のような**リスト操作の結果**が出れば、まず成功です。
 
 > 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex06Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex06Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
 
 ### 動かしてみる用ランナー（`Ex06Play.java`）
 
@@ -89,13 +91,13 @@ public class Ex06Play {
         System.out.println();
 
         List<String> fruits = new ArrayList<>();
-        ex.addAll(fruits, "りんご", "みかん", "ぶどう");
+        ex.addAll(fruits, "りんご", "みかん", "ぶどう", "桃");
         System.out.println("果物リストに追加 → " + fruits);
         System.out.println("join(\" / \") → " + ex.join(fruits, " / "));
         System.out.println();
 
         List<String> filtered = ex.removeShort(fruits, 3);
-        System.out.println("3文字未満を除く → " + filtered);
+        System.out.println("3文字未満を除く → " + filtered + " （「桃」だけ消える）");
         System.out.println("\"みかん\" の位置 → " + ex.indexOf(fruits, "みかん"));
         System.out.println();
 
