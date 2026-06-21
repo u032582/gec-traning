@@ -54,13 +54,67 @@ class InsufficientBalanceException extends Exception {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex09Play.java` として `Ex09.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex09.java Ex09Play.java && java Ex09Play
+```
+
+3. 画面に `残高不足を検知 → ...` のような**例外処理の結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex09Test` で正解判定します。
+
+### 動かしてみる用ランナー（`Ex09Play.java`）
+
+```java
+/**
+ * 課題09 動かしてみる用ランナー
+ * 実行: javac Ex09.java Ex09Play.java && java Ex09Play
+ */
+public class Ex09Play {
+
+    public static void main(String[] args) {
+        Ex09 ex = new Ex09();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        System.out.println("10 ÷ 2 = " + ex.safeDivide(10, 2));
+        System.out.println("10 ÷ 0 = " + ex.safeDivide(10, 0) + " （0除算を安全に処理）");
+        System.out.println("\"42\" を整数に = " + ex.parseOrDefault("42", -1));
+        System.out.println("\"abc\" を整数に = " + ex.parseOrDefault("abc", -1) + " （変換失敗時は -1）");
+        System.out.println();
+
+        try {
+            int after = ex.withdraw(1000, 300);
+            System.out.println("残高1000円から300円引き出し → 残高 " + after + " 円");
+            ex.withdraw(1000, 1500);
+            System.out.println("（ここには来ないはず）");
+        } catch (InsufficientBalanceException e) {
+            System.out.println("残高不足を検知 → " + e.getMessage());
+        }
+        System.out.println();
+
+        System.out.println("✨ エラーをうまく処理した結果が見えたら、例外処理は動いています！");
+        System.out.println("次に Ex09Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex09Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex09.java Ex09Test.java && java Ex09Test
@@ -125,7 +179,7 @@ public class Ex09Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>0で割ると何の例外が出る？</summary>
@@ -153,6 +207,6 @@ public class Ex09Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex09.java](../solutions/Ex09.java) と見比べてください。

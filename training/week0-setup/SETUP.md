@@ -417,6 +417,8 @@ java Hello
 
 このメッセージが出たら、環境構築は完了です。次は [week00-it-basics/README.md](../week00-it-basics/README.md)（IT基礎の座学）へ進み、ここまでで触れた言葉と仕組みをじっくり理解しましょう。
 
+> 💡 週1に入る前の「最初の成功体験」として、[week1-java-basics/exercises/00-first-run.md](../week1-java-basics/exercises/00-first-run.md)（自分の名前を画面に出す）も用意しています。IT基礎のあと、週1の最初に取り組むとスムーズです。
+
 ---
 
 ## 付録: 毎日の作業を始めるときのルーティン（覚えておくと楽）

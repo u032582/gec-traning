@@ -60,13 +60,59 @@ public class Ex02 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex02Play.java` として `Ex02.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex02.java Ex02Play.java && java Ex02Play
+```
+
+3. 画面に `5 + 3 = 8` のような**計算結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex02Test` で正解判定します。
+
+### 動かしてみる用ランナー（`Ex02Play.java`）
+
+```java
+/**
+ * 課題02 動かしてみる用ランナー
+ * 実行: javac Ex02.java Ex02Play.java && java Ex02Play
+ */
+public class Ex02Play {
+
+    public static void main(String[] args) {
+        Ex02 ex = new Ex02();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        System.out.println("5 + 3 = " + ex.add(5, 3));
+        System.out.println("5 - 3 = " + ex.subtract(5, 3));
+        System.out.println("5 × 3 = " + ex.multiply(5, 3));
+        System.out.println("7 ÷ 2 = " + ex.divideAsDouble(7, 2) + " （小数）");
+        System.out.println("(10 + 20 + 30) ÷ 3 = " + ex.average(10, 20, 30));
+        System.out.println("3.9 を整数に = " + ex.toInt(3.9));
+        System.out.println();
+
+        System.out.println("✨ 数字が画面に出たら、計算処理は動いています！");
+        System.out.println("次に Ex02Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex02Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex02.java Ex02Test.java && java Ex02Test
@@ -126,7 +172,7 @@ public class Ex02Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>divideAsDouble が 3.0 になってしまう（小数が出ない）</summary>
@@ -148,6 +194,6 @@ public class Ex02Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex02.java](../solutions/Ex02.java) と見比べてください。

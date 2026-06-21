@@ -52,13 +52,71 @@ public class Ex05 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex05Play.java` として `Ex05.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex05.java Ex05Play.java && java Ex05Play
+```
+
+3. 画面に `合計 → 14` や `逆順 → [5, 1, 4, 1, 3]` のような**配列の変換結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex05Test` で正解判定します。
+
+### 動かしてみる用ランナー（`Ex05Play.java`）
+
+```java
+/**
+ * 課題05 動かしてみる用ランナー
+ * 実行: javac Ex05.java Ex05Play.java && java Ex05Play
+ */
+public class Ex05Play {
+
+    static String formatArray(int[] arr) {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < arr.length; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(arr[i]);
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Ex05 ex = new Ex05();
+        int[] nums = {3, 1, 4, 1, 5};
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        System.out.println("配列 " + formatArray(nums));
+        System.out.println("  合計 → " + ex.sum(nums));
+        System.out.println("  最大 → " + ex.max(nums));
+        System.out.println("  1 の個数 → " + ex.count(nums, 1));
+        System.out.println("  逆順 → " + formatArray(ex.reverse(nums)));
+        System.out.println();
+
+        System.out.println("✨ 配列の数字が変換されて見えたら、配列処理は動いています！");
+        System.out.println("次に Ex05Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex05Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex05.java Ex05Test.java && java Ex05Test
@@ -126,7 +184,7 @@ public class Ex05Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>配列を全部回るには？</summary>
@@ -148,6 +206,6 @@ public class Ex05Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex05.java](../solutions/Ex05.java) と見比べてください。

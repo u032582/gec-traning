@@ -54,13 +54,72 @@ public class Ex07 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex07Play.java` として `Ex07.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex07.java Ex07Play.java && java Ex07Play
+```
+
+3. 画面に `apple=3` のような**単語集計の結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex07Test` で正解判定します。
+
+### 動かしてみる用ランナー（`Ex07Play.java`）
+
+```java
+/**
+ * 課題07 動かしてみる用ランナー
+ * 実行: javac Ex07.java Ex07Play.java && java Ex07Play
+ */
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Ex07Play {
+
+    public static void main(String[] args) {
+        Ex07 ex = new Ex07();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        List<String> words = Arrays.asList("apple", "banana", "apple", "cherry", "banana", "apple");
+        Map<String, Integer> counts = ex.countWords(words);
+        System.out.println("単語の出現回数 → " + counts);
+        System.out.println("\"apple\" の回数 → " + ex.getOrZero(counts, "apple"));
+        System.out.println("最も多い単語 → " + ex.maxKey(counts));
+        System.out.println();
+
+        Map<String, Integer> a = new HashMap<>();
+        a.put("A", 1);
+        a.put("B", 2);
+        Map<String, Integer> b = new HashMap<>();
+        b.put("B", 3);
+        b.put("C", 4);
+        System.out.println("Mapの合算 → " + ex.merge(a, b));
+        System.out.println();
+
+        System.out.println("✨ 単語の集計結果が見えたら、Map 操作は動いています！");
+        System.out.println("次に Ex07Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex07Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex07.java Ex07Test.java && java Ex07Test
@@ -134,7 +193,7 @@ public class Ex07Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>countWords で「初めて見た単語は1、既に見た単語は+1」をどう書く？</summary>
@@ -156,6 +215,6 @@ public class Ex07Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex07.java](../solutions/Ex07.java) と見比べてください。
