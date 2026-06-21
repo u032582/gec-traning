@@ -54,13 +54,71 @@ public class Ex08 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex08Play.java` として `Ex08.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex08.java Ex08Play.java && java Ex08Play
+```
+
+3. 画面に `重複あり？ → true` や `共通部分 → [3, 4]` のような**集合の結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex08Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex08Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex08Play.java`）
+
+```java
+/**
+ * 課題08 動かしてみる用ランナー
+ * 実行: javac Ex08.java Ex08Play.java && java Ex08Play
+ */
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class Ex08Play {
+
+    public static void main(String[] args) {
+        Ex08 ex = new Ex08();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        List<Integer> nums = Arrays.asList(1, 2, 2, 3, 3, 3);
+        System.out.println("リスト " + nums);
+        System.out.println("  重複を除いた種類数 → " + ex.unique(nums));
+        System.out.println("  重複あり？ → " + ex.hasDuplicate(nums));
+        System.out.println();
+
+        Set<Integer> a = new HashSet<>(Arrays.asList(1, 2, 3, 4));
+        Set<Integer> b = new HashSet<>(Arrays.asList(3, 4, 5, 6));
+        System.out.println("集合A " + a + " と 集合B " + b);
+        System.out.println("  共通部分 → " + ex.intersection(a, b));
+        System.out.println("  AにあってBにない → " + ex.difference(a, b));
+        System.out.println();
+
+        System.out.println("✨ 重複や集合の結果が見えたら、Set 操作は動いています！");
+        System.out.println("次に Ex08Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex08Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex08.java Ex08Test.java && java Ex08Test
@@ -119,7 +177,7 @@ public class Ex08Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>unique（重複を除いた数）を一発で出すには？</summary>
@@ -141,6 +199,6 @@ public class Ex08Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex08.java](../solutions/Ex08.java) と見比べてください。

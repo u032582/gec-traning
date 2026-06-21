@@ -70,13 +70,64 @@ class BankAccount {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex10Play.java` として `Ex10.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex10.java Ex10Play.java && java Ex10Play
+```
+
+3. 画面に `残高: 1200 円` のように**口座残高が変わる様子**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex10Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex10Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex10Play.java`）
+
+```java
+/**
+ * 課題10 動かしてみる用ランナー
+ * 実行: javac Ex10.java Ex10Play.java && java Ex10Play
+ */
+public class Ex10Play {
+
+    public static void main(String[] args) {
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        BankAccount account = new BankAccount("田中", 1000);
+        System.out.println("口座を開設 → 名義: " + account.getOwner() + " / 残高: " + account.getBalance() + " 円");
+
+        account.deposit(500);
+        System.out.println("500円 入金後 → 残高: " + account.getBalance() + " 円");
+
+        boolean ok = account.withdraw(300);
+        System.out.println("300円 引き出し " + (ok ? "成功" : "失敗") + " → 残高: " + account.getBalance() + " 円");
+
+        ok = account.withdraw(2000);
+        System.out.println("2000円 引き出し " + (ok ? "成功" : "失敗") + " → 残高: " + account.getBalance() + " 円");
+        System.out.println();
+
+        System.out.println("✨ 口座の残高が変わって見えたら、クラス設計は動いています！");
+        System.out.println("次に Ex10Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex10Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex10.java Ex10Test.java && java Ex10Test
@@ -133,7 +184,7 @@ public class Ex10Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>コンストラクタで this を使う理由</summary>
@@ -155,6 +206,6 @@ public class Ex10Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex10.java](../solutions/Ex10.java) と見比べてください。

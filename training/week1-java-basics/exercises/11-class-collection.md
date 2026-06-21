@@ -81,13 +81,68 @@ class Inventory {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex11Play.java` として `Ex11.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex11.java Ex11Play.java && java Ex11Play
+```
+
+3. 画面に `在庫総額 → ... 円` のような**在庫管理の結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex11Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex11Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex11Play.java`）
+
+```java
+/**
+ * 課題11 動かしてみる用ランナー
+ * 実行: javac Ex11.java Ex11Play.java && java Ex11Play
+ */
+public class Ex11Play {
+
+    public static void main(String[] args) {
+        Inventory inv = new Inventory();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        inv.add(new Product("りんご", 120, 10));
+        inv.add(new Product("みかん", 80, 5));
+        inv.add(new Product("ぶどう", 300, 2));
+
+        System.out.println("在庫を3品目登録しました");
+        System.out.println("  在庫総額 → " + inv.totalAmount() + " 円");
+
+        Product p = inv.findByName("みかん");
+        if (p != null) {
+            System.out.println("  \"みかん\" を検索 → 単価 " + p.getPrice() + " 円 × 在庫 " + p.getQuantity());
+        }
+
+        System.out.println("  在庫5未満の品目数 → " + inv.countLowStock(5));
+        System.out.println();
+
+        System.out.println("✨ 商品と在庫の情報が見えたら、クラス間の連携は動いています！");
+        System.out.println("次に Ex11Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex11Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex11.java Ex11Test.java && java Ex11Test
@@ -144,7 +199,7 @@ public class Ex11Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>Inventory の中で Product をどう回る？</summary>

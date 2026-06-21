@@ -79,13 +79,72 @@ class Item {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex12Play.java` として `Ex12.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex12.java Ex12Play.java && java Ex12Play
+```
+
+3. 画面に `偶数だけ → [2, 4, 6]` のような**Stream の変換結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex12Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex12Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex12Play.java`）
+
+```java
+/**
+ * 課題12 動かしてみる用ランナー
+ * 実行: javac Ex12.java Ex12Play.java && java Ex12Play
+ */
+import java.util.Arrays;
+import java.util.List;
+
+public class Ex12Play {
+
+    public static void main(String[] args) {
+        Ex12 ex = new Ex12();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        List<Integer> nums = Arrays.asList(1, 2, 3, 4, 5, 6);
+        System.out.println("元のリスト → " + nums);
+        System.out.println("  偶数だけ → " + ex.evens(nums));
+        System.out.println("  2倍に → " + ex.doubled(nums));
+        System.out.println("  合計 → " + ex.sum(nums));
+        System.out.println();
+
+        List<Item> items = Arrays.asList(
+                new Item("りんご", 120),
+                new Item("みかん", 80),
+                new Item("高級メロン", 3000)
+        );
+        System.out.println("商品リストから名前だけ → " + ex.names(items));
+        System.out.println("1000円以上の合計 → " + ex.totalPriceOver(items, 1000) + " 円");
+        System.out.println();
+
+        System.out.println("✨ リストが変換されて見えたら、Stream API は動いています！");
+        System.out.println("次に Ex12Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex12Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex12.java Ex12Test.java && java Ex12Test
@@ -141,7 +200,7 @@ public class Ex12Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>Stream の基本の流れ</summary>
@@ -169,7 +228,7 @@ public class Ex12Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex12.java](../solutions/Ex12.java) と見比べてください。
 
