@@ -6,7 +6,7 @@
 | ファイル | 誰のためのものか | 役割 |
 |---|---|---|
 | **このファイル（CLAUDE.md）** | **教材を作る/直す人** | 教材を編集するときの設計思想・不変条件・整合性ルール |
-| [AGENTS.md](AGENTS.md) | 研修中の伴走AI（Antigravity） | 新人に伴走するときのふるまいの憲法 |
+| [AGENTS.md](AGENTS.md) | 研修中の伴走AI（Cursor） | 新人に伴走するときのふるまいの憲法 |
 | [training/README.md](training/README.md) | 新人（受講者） | 研修の進め方・AI利用ルール・質問の作法 |
 | [training/for-instructors.md](training/for-instructors.md) | 講師 | 対面の進め方・評価観点・見守りどころ |
 
