@@ -70,13 +70,64 @@ class BankAccount {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex10Play.java` として `Ex10.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex10.java Ex10Play.java && java Ex10Play
+```
+
+3. 画面に `残高: 1200 円` のように**口座残高が変わる様子**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex10Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex10Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex10Play.java`）
+
+```java
+/**
+ * 課題10 動かしてみる用ランナー
+ * 実行: javac Ex10.java Ex10Play.java && java Ex10Play
+ */
+public class Ex10Play {
+
+    public static void main(String[] args) {
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        BankAccount account = new BankAccount("田中", 1000);
+        System.out.println("口座を開設 → 名義: " + account.getOwner() + " / 残高: " + account.getBalance() + " 円");
+
+        account.deposit(500);
+        System.out.println("500円 入金後 → 残高: " + account.getBalance() + " 円");
+
+        boolean ok = account.withdraw(300);
+        System.out.println("300円 引き出し " + (ok ? "成功" : "失敗") + " → 残高: " + account.getBalance() + " 円");
+
+        ok = account.withdraw(2000);
+        System.out.println("2000円 引き出し " + (ok ? "成功" : "失敗") + " → 残高: " + account.getBalance() + " 円");
+        System.out.println();
+
+        System.out.println("✨ 口座の残高が変わって見えたら、クラス設計は動いています！");
+        System.out.println("次に Ex10Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex10Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex10.java Ex10Test.java && java Ex10Test
@@ -133,7 +184,7 @@ public class Ex10Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>コンストラクタで this を使う理由</summary>
@@ -155,6 +206,67 @@ public class Ex10Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex10.java](../solutions/Ex10.java) と見比べてください。
+
+---
+
+## 8. （回収）`main` を読み解く — なぜ `main` は `static` なのか
+
+> 課題00で「`static` だけは今はおまじないにしておく」と予告しました（[00-first-run.md のコラム](00-first-run.md#コラム-public-static-void-mainstring-args-の正体最初は写すだけでok)）。また課題01では「`new Ex01()` でなぜ実物を作るのかは課題10で回収」と予告しました（[01-variables.md のコラム](01-variables.md#コラム-メソッドの形を読み解くこの課題でいちばん大事)）。クラスとインスタンスの違いを学んだ**今なら**、その両方の正体が分かります。ここで回収しましょう。
+
+### クラスとインスタンスの復習
+
+この課題で、こう書きましたね。
+
+```java
+BankAccount account = new BankAccount("田中", 1000); // ← new で「実物」を1つ作った
+account.getBalance(); // ← その実物に対して呼ぶ
+```
+
+- **クラス** (`BankAccount`) … 設計図。
+- **インスタンス** (`account`) … 設計図から `new` で作った実物。
+- `getBalance()` のような**インスタンスメソッド**は、「**どの**口座の残高か」が決まらないと呼べません。だから必ず `account.` のように**実物に対して**呼びます。
+
+### `static` ＝「実物を作らなくても呼べる」印
+
+ところが `static` の付いたメソッドは、**`new` で実物を作らなくても、いきなり呼べます**。「特定の実物」ではなく「クラスそのものに紐づく処理」だからです。
+
+ここで `main` に戻ります。プログラムを `java FirstApp` で起動した**いちばん最初の瞬間**を思い出してください。
+
+> このとき、まだ `new` は一度も実行されていません。**実物（インスタンス）は1つも存在しない**のです。
+
+もし `main` が普通のインスタンスメソッドだったら、「呼ぶための実物」を誰かが先に `new` しないといけません。でも、その `new` を書くコードを動かすにも、やっぱり入口が必要で……と**ニワトリと卵**になってしまいます。
+
+だからJavaは「**入口の `main` は `static` にして、実物なしでいきなり呼べるようにする**」と決めています。これが「なぜ `main` は `static` なのか」の答えです。
+
+### 教材の中に、もう実例がある
+
+この課題のテストランナー [`Ex10Test.java`](#5-検証方法) を見直してください。`static` がいくつも出てきます。
+
+```java
+static int fail = 0;          // クラスに紐づくデータ
+static void check(...) { ... } // 実物を作らずに呼べるメソッド
+public static void main(String[] args) {
+    check("owner", "田中", acc.getOwner()); // ← new せずに check を呼べている
+}
+```
+
+`main`（static）の中から `check`（static）を、**`new` なしで直接呼べている**のが分かりますか？ これが `static` 同士だからできることです。一方 `acc.getOwner()` のほうは、`acc` という**実物に対して**呼んでいます。この対比が、`static` と「ふつうのメソッド」の違いそのものです。
+
+そして、これで**課題01の謎も解けます**。課題01で `ex.greeting("田中")` を呼ぶ前に `Ex01 ex = new Ex01();` と書いたのは、`greeting` が `static` の付かない**ふつうのメソッド（インスタンスメソッド）**だったからです。ふつうのメソッドは「どの実物に対して呼ぶか」が必要なので、先に `new` で実物を作る必要があったのです。逆に、もし `greeting` に `static` が付いていれば `new` は要りませんでした。
+
+### まとめ（`main` の1行を、もう一度）
+
+```java
+public static void main(String[] args)
+```
+
+- `public` … 外（Javaの実行エンジン）から呼べる。
+- `static` … **実物（インスタンス）を作らなくても呼べる**。だから「いちばん最初の入口」になれる。 ← 今回回収した部分
+- `void` … 値を返さない。
+- `main` … Javaが入口と決めている名前。
+- `String[] args` … 実行時に外から渡せる文字の入力。
+
+> 💡 これで `main` の呪文は全部「意味のある言葉」になりました。週3以降でAIにコードを書かせるようになっても、AIが生成した `static` の付いたコードを「なぜここが static なのか」と読み解けることが、レビューできる人の土台になります。

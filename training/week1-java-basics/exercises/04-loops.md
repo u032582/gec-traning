@@ -58,13 +58,62 @@ public class Ex04 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex04Play.java` として `Ex04.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex04.java Ex04Play.java && java Ex04Play
+```
+
+3. 画面に FizzBuzz の列や `5! = 120` のような**繰り返しの結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex04Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex04Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex04Play.java`）
+
+```java
+/**
+ * 課題04 動かしてみる用ランナー
+ * 実行: javac Ex04.java Ex04Play.java && java Ex04Play
+ */
+public class Ex04Play {
+
+    public static void main(String[] args) {
+        Ex04 ex = new Ex04();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        System.out.println("1 から 5 までの合計 → " + ex.sumTo(5));
+        System.out.println("5!（5の階乗）→ " + ex.factorial(5));
+        System.out.println("12345 の桁数 → " + ex.countDigits(12345));
+        System.out.println();
+
+        System.out.println("FizzBuzz（1〜15）:");
+        System.out.println(ex.fizzbuzz(15));
+        System.out.println();
+
+        System.out.println("✨ 繰り返し処理の結果が画面に並んだら、ループは動いています！");
+        System.out.println("次に Ex04Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex04Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex04.java Ex04Test.java && java Ex04Test
@@ -119,7 +168,7 @@ public class Ex04Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>for文の基本の形がわからない</summary>
@@ -147,6 +196,6 @@ public class Ex04Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex04.java](../solutions/Ex04.java) と見比べてください。

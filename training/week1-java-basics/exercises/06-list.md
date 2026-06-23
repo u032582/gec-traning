@@ -55,13 +55,67 @@ public class Ex06 {
 
 ---
 
-## 3. 完成条件
+## 3. まず動かしてみる（書いたコードを画面で確認）
+
+テストの前に、**自分のコードが画面に結果を出す**ことを確認しましょう。「プログラムが動いた！」という実感があると、続ける力（自己効力感）になります。
+
+1. 下の「動かしてみる用ランナー」を `Ex06Play.java` として `Ex06.java` と同じフォルダに保存する。
+2. 次を実行する。
+
+```bash
+javac Ex06.java Ex06Play.java && java Ex06Play
+```
+
+3. 画面に `りんご / みかん / ぶどう` のような**リスト操作の結果**が出れば、まず成功です。
+
+> 💡 `[PASS]` より先に、「動いた！」という実感を大事にしてください。このあと `Ex06Test` で正解判定します。
+> 💡 ここで `null` やエラーが出ても大丈夫。あなたの実装がまだ途中なだけのサインです。エラーの行番号を見て、メソッドを1つずつ埋めていきましょう。
+> 💡 `Ex06Play.java` 内のサンプル値（名前・数字など）を変えて再実行してみよう。
+
+### 動かしてみる用ランナー（`Ex06Play.java`）
+
+```java
+/**
+ * 課題06 動かしてみる用ランナー
+ * 実行: javac Ex06.java Ex06Play.java && java Ex06Play
+ */
+import java.util.ArrayList;
+import java.util.List;
+
+public class Ex06Play {
+
+    public static void main(String[] args) {
+        Ex06 ex = new Ex06();
+
+        System.out.println("=== あなたのコードを動かしてみます ===");
+        System.out.println();
+
+        List<String> fruits = new ArrayList<>();
+        ex.addAll(fruits, "りんご", "みかん", "ぶどう", "桃");
+        System.out.println("果物リストに追加 → " + fruits);
+        System.out.println("join(\" / \") → " + ex.join(fruits, " / "));
+        System.out.println();
+
+        List<String> filtered = ex.removeShort(fruits, 3);
+        System.out.println("3文字未満を除く → " + filtered + " （「桃」だけ消える）");
+        System.out.println("\"みかん\" の位置 → " + ex.indexOf(fruits, "みかん"));
+        System.out.println();
+
+        System.out.println("✨ リストの中身が変わって見えたら、List 操作は動いています！");
+        System.out.println("次に Ex06Test で正解判定してください。");
+    }
+}
+```
+
+---
+
+## 4. 完成条件
 
 - `Ex06Test.java` を実行して **`ALL PASS ✅`** が出ること。
 
 ---
 
-## 4. 検証方法
+## 5. 検証方法
 
 ```bash
 javac Ex06.java Ex06Test.java && java Ex06Test
@@ -119,7 +173,7 @@ public class Ex06Test {
 
 ---
 
-## 5. つまずきポイントとヒント
+## 6. つまずきポイントとヒント
 
 <details>
 <summary>List の長さや要素はどう取る？</summary>
@@ -147,6 +201,6 @@ public class Ex06Test {
 
 ---
 
-## 6. 模範解答への導線
+## 7. 模範解答への導線
 
 先に自分で解いてから、[solutions/Ex06.java](../solutions/Ex06.java) と見比べてください。
