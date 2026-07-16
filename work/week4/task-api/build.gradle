@@ -1,0 +1,52 @@
+// ===== ビルド設定ファイル（build.gradle） =====
+// このファイルは「このプロジェクトをどう組み立てるか（ビルドするか）」を書いた設計図です。
+// 使うライブラリ（部品集）や、対応するJavaのバージョンをここで指定します。
+// 用語メモ: ライブラリ … 他の人が作ってくれた便利な部品の集まり。自分で全部書かずに済みます。
+
+plugins {
+    // Javaのプロジェクトであることを宣言
+    id 'java'
+    // Spring Boot本体。バージョンはここで固定する（3.3.x系の最新安定版）
+    id 'org.springframework.boot' version '3.3.13'
+    // Spring Bootが「どのライブラリをどのバージョンで使うか」をまとめて管理してくれる仕組み（BOM）
+    // これのおかげで、多くのライブラリはバージョン番号を書かなくても整合の取れた版が選ばれる
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    // このプロジェクトはJava 21で動かす（週0で入れたJDK21に合わせる）
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    // ライブラリのダウンロード元（みんなが使う公式の置き場）
+    mavenCentral()
+}
+
+dependencies {
+    // Web（REST API）を作るための一式。Controllerや@RestControllerなどが使える
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 入力チェック（Bean Validation）の一式。@NotBlank や @Email などが使える
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // MyBatis（JavaとSQLをつなぐ道具）をSpring Bootで使うための一式
+    // これだけはSpring BootのBOM管理対象外なので、バージョンを明示する（3.0.x系の最新）
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
+
+    // PostgreSQL（データベース）へ接続するためのドライバ
+    // バージョンはSpring BootのBOMが管理するので、ここでは書かない（整合性が自動で取れる）
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // テスト用の一式（週4で本格的に使う。雛形では入れておくだけ）
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

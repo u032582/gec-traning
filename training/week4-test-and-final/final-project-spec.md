@@ -266,16 +266,22 @@ curl -i http://localhost:8080/api/tasks/1
 
 ```
 【3層（Controller / Service / Mapper）それぞれの役割を自分の言葉で】
-
+ControllerはURLとHTTPを受け取る窓口。
+Serviceは存在チェックや作成・更新などの判断・処理。
+MapperはJavaとSQLをつなぎ、DBの出し入れをする。
 
 【なぜ存在チェックをServiceに書いたのか】
-
+「無ければ404」というルールを1か所にまとめられるから。
+Controllerに書くと重複しやすい。Serviceに置くと単体テストもしやすい。
 
 【@Valid と GlobalExceptionHandler の関係（不正入力がどう400になるか）】
-
+@ValidがTaskRequestの入力をチェックし、違反なら例外が飛ぶ。
+GlobalExceptionHandlerがその例外を捕まえて、HTTP 400とエラー内容のJSONを返す。
 
 【AIに書かせた部分があれば、その箇所と「なぜその実装か」】
-
+実装の書き方はAIのひな形を多く参考にした。
+自分で担当したのは実装順の判断と、curl・テストでの動作確認。
+なぜ3層か、なぜServiceで存在チェックか、@ValidとHandlerの関係は自分の言葉で説明できる。
 ```
 
 ---

@@ -1,0 +1,30 @@
+# ===== アプリの設定ファイル（application.yml） =====
+# DB接続先や、サーバーのポート番号など「動かすための設定」をここに書きます。
+# 用語メモ: yml（ヤムル）… 設定を「キー: 値」と字下げ（インデント）で表す書き方。
+
+server:
+  # このアプリが待ち受けるポート番号。http://localhost:8080 でアクセスできるようになる。
+  port: 8080
+
+spring:
+  datasource:
+    # 接続するデータベースの場所。localhost（自分のPC）の5432番ポートの training というDB。
+    url: jdbc:postgresql://localhost:5432/training
+    # DBのユーザー名。週0で使った管理ユーザー postgres。
+    username: postgres
+    # ★★★ 重要 ★★★
+    # 下の password は仮の値です。週0で自分が設定したPostgreSQLのパスワードに置き換えてください。
+    # （週0で分かりやすく postgres にした人は、このままでも動きます）
+    password: postgres
+    # 使うDBドライバ（PostgreSQL用）。固定でOK。
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  # SQLを書いたXMLファイルの置き場所。resources/mapper の中の *.xml を全部読み込む。
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # DBの列名（customer_id のようなスネークケース）を、Javaの項目名（customerId のキャメルケース）に
+    # 自動で対応づける設定。これをtrueにすると、わざわざ手で対応を書かなくてよくなる。
+    # 用語メモ: スネークケース … 単語を _ でつなぐ書き方（customer_id）。
+    #           キャメルケース … 2語目以降の頭を大文字にする書き方（customerId）。
+    map-underscore-to-camel-case: true
