@@ -30,19 +30,20 @@
 src/main/java/com/example/training/
   LibraryApplication.java     ← 起動クラス（main はここ）
   book/     書籍まわり     … Controller / Service / Mapper / エンティティ(Book) / DTO(BookResponse)
-  member/   利用者まわり   （※これから追加）
-  lending/  貸出・返却     （※これから追加。このアプリの核）
+  member/   利用者まわり   … Service / Mapper / エンティティ(Member)
+  lending/  貸出・返却     … Controller / Service / Mapper / エンティティ(Lending) / DTO(Request・Response)【このアプリの核】
   common/   共通           … 例外ハンドラ / NotFoundException(404) / BusinessRuleException(409)
 src/main/resources/
   application.yml           ← DB接続などの設定
   mapper/*.xml              ← 実際のSQL（MapperインタフェースとXMLのidが対応）
 db/
   schema.sql                ← テーブル定義 + サンプルデータ
+src/test/java/...
+  lending/LendingServiceTest.java  ← 貸出/返却の主要分岐のテスト（※わざと手薄。週8で埋める）
 ```
 
-> ⚠️ **現在の整備状況**: いまは **book（書籍取得）と common（例外処理）まで**が入っています。
-> member（利用者）と lending（貸出・返却）は、これから段階的に追加していきます（[DESIGN.md §6](DESIGN.md) の作成手順に沿う）。
-> `db/schema.sql` には3テーブルすべてが入っているので、DBは最初から完成形です。
+> **現在の整備状況**: book（書籍取得）・member（利用者）・lending（貸出・返却）・common（例外処理）まで**ひととおり動きます**。
+> テストは lending の主要分岐だけの**最低限**（週8で AI と協働して埋める前提で、わざと手薄にしてあります）。
 
 ---
 
@@ -97,6 +98,28 @@ curl -i http://localhost:8080/api/books/999
   {"id":1,"title":"リーダブルコード","author":"Dustin Boswell","category":"技術書","totalCount":3,"availableCount":2},
   ...
 ]
+```
+
+貸出・返却も試せます（**在庫の増減に注目**——このアプリの核です）。
+```bash
+# 本を借りる（book 5 を member 1 が）。成功すると201で貸出記録が返る。
+curl -i -X POST http://localhost:8080/api/lendings \
+     -H 'Content-Type: application/json' \
+     -d '{"bookId":5,"memberId":1}'
+# → この直後に curl http://localhost:8080/api/books/5 を見ると availableCount が1減っている
+
+# 在庫0の本（id=3 は貸出中で在庫0）を借りようとする → 409 が返る
+curl -i -X POST http://localhost:8080/api/lendings \
+     -H 'Content-Type: application/json' -d '{"bookId":3,"memberId":2}'
+
+# 返す（上で作られた貸出のidを {id} に入れる） → 在庫が1戻る
+curl -i -X POST http://localhost:8080/api/lendings/{id}/return
+
+# 同じものをもう一度返そうとする → 409（二重返却）
+curl -i -X POST http://localhost:8080/api/lendings/{id}/return
+
+# ある利用者の貸出履歴
+curl http://localhost:8080/api/members/1/lendings
 ```
 
 ---

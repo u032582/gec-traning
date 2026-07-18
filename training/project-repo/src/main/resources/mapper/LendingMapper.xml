@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  lendings テーブルへのSQLを書くファイル。
+  namespace は対応する Mapper インタフェースの完全名（パッケージ込み）。
+-->
+<mapper namespace="com.example.training.lending.LendingMapper">
+
+    <resultMap id="lendingResultMap" type="com.example.training.lending.Lending">
+        <id     property="id"         column="id"/>
+        <result property="bookId"     column="book_id"/>
+        <result property="memberId"   column="member_id"/>
+        <result property="lentAt"     column="lent_at"/>
+        <result property="dueDate"    column="due_date"/>
+        <result property="returnedAt" column="returned_at"/>
+    </resultMap>
+
+    <!--
+      useGeneratedKeys="true" と keyProperty="id" で、
+      INSERT で自動採番された id を、渡した Lending オブジェクトの id に書き戻す。
+    -->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO lendings (book_id, member_id, lent_at, due_date, returned_at)
+        VALUES (#{bookId}, #{memberId}, #{lentAt}, #{dueDate}, #{returnedAt})
+    </insert>
+
+    <select id="findById" resultMap="lendingResultMap">
+        SELECT id, book_id, member_id, lent_at, due_date, returned_at
+        FROM lendings
+        WHERE id = #{id}
+    </select>
+
+    <select id="findByMemberId" resultMap="lendingResultMap">
+        SELECT id, book_id, member_id, lent_at, due_date, returned_at
+        FROM lendings
+        WHERE member_id = #{memberId}
+        ORDER BY lent_at DESC, id DESC
+    </select>
+
+    <!--
+      返却済みにする。WHERE に returned_at IS NULL を入れることで、
+      まだ返していないものだけを対象にする。すでに返却済みなら1行も
+      更新されず、呼び出し側が返り値0を見て「二重返却」と判断できる。
+    -->
+    <update id="markReturned">
+        UPDATE lendings
+        SET returned_at = #{returnedAt}
+        WHERE id = #{id}
+          AND returned_at IS NULL
+    </update>
+
+</mapper>

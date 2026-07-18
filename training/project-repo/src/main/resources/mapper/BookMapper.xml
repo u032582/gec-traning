@@ -43,4 +43,29 @@
         WHERE id = #{id}
     </select>
 
+    <!--
+      貸出可能数を1減らす。WHERE に available_count > 0 を入れることで、
+      在庫が残っているときだけ減る。もし0なら1行も更新されず、
+      呼び出し側（Service）が返り値0を見て「在庫切れ」と判断できる。
+      条件をSQL側に持たせることで、2件同時の貸出でも最後の1冊を
+      二重に貸してしまう事故を防いでいる（DB側での安全弁）。
+    -->
+    <update id="decrementAvailable">
+        UPDATE books
+        SET available_count = available_count - 1
+        WHERE id = #{id}
+          AND available_count > 0
+    </update>
+
+    <!--
+      貸出可能数を1増やす（返却時）。total_count を超えて増えないよう
+      WHERE で歯止めをかけている。整合が保たれていれば必ず1行更新される。
+    -->
+    <update id="incrementAvailable">
+        UPDATE books
+        SET available_count = available_count + 1
+        WHERE id = #{id}
+          AND available_count &lt; total_count
+    </update>
+
 </mapper>
