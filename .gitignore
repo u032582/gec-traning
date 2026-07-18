@@ -1,5 +1,7 @@
 # ローカルタスク管理（task-manager）。リポジトリには含めない
-tasks/
+# ※ ルート直下の tasks/ だけを対象にする（先頭 / で固定）。
+#   training 配下の教材フォルダ（例: week9-11-project/tasks/）は誤って除外しない。
+/tasks/
 
 # Javaのコンパイル成果物（javacが生成する。ソースだけを管理する）
 *.class
