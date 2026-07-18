@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  books テーブルへのSQLを書くファイル。
+  namespace は対応する Mapper インタフェースの完全名（パッケージ込み）。
+  各 <select> の id は、インタフェースのメソッド名と一致させる。
+-->
+<mapper namespace="com.example.training.book.BookMapper">
+
+    <!--
+      列名(snake_case)と Javaフィールド(camelCase)の対応。
+      application.yml で map-underscore-to-camel-case を有効にしているため
+      ほとんど自動だが、明示しておくと読み手に親切。
+    -->
+    <resultMap id="bookResultMap" type="com.example.training.book.Book">
+        <id     property="id"             column="id"/>
+        <result property="title"          column="title"/>
+        <result property="author"         column="author"/>
+        <result property="category"       column="category"/>
+        <result property="totalCount"     column="total_count"/>
+        <result property="availableCount" column="available_count"/>
+        <result property="createdAt"      column="created_at"/>
+    </resultMap>
+
+    <!--
+      一覧取得。category が渡されたときだけ WHERE で絞る。
+      <if> で「引数が null でなければ条件を足す」動的SQL。
+    -->
+    <select id="findAll" resultMap="bookResultMap">
+        SELECT id, title, author, category, total_count, available_count, created_at
+        FROM books
+        <if test="category != null">
+            WHERE category = #{category}
+        </if>
+        ORDER BY id
+    </select>
+
+    <select id="findById" resultMap="bookResultMap">
+        SELECT id, title, author, category, total_count, available_count, created_at
+        FROM books
+        WHERE id = #{id}
+    </select>
+
+</mapper>

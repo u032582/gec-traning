@@ -1,0 +1,53 @@
+// =====================================================================
+// 題材リポ「図書貸出管理API」の build.gradle
+// ---------------------------------------------------------------------
+// 週3/週4と同じ構成にそろえてある:
+//   - Java 21 / Spring Boot 3.3 系 / MyBatis / PostgreSQL ドライバ
+//   - spring-boot-starter-test に JUnit5 / Mockito が同梱
+//
+// よく使うコマンド:
+//   ./gradlew build      … テスト込みでビルド
+//   ./gradlew bootRun    … アプリを起動（要: PostgreSQLが起動し、テーブルがある）
+//   ./gradlew test       … 単体テストを実行（DB不要。Mockitoで完結する）
+// =====================================================================
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Web（REST API）一式。
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // 入力チェック（Bean Validation）。@NotNull などが使えるようになる。
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // MyBatis（Spring Boot 連携版）。週3/週4と同じ。
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    // PostgreSQL に接続するためのドライバ。
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // テスト一式（JUnit5 + Mockito + AssertJ）。
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // MyBatis のテスト補助。
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
