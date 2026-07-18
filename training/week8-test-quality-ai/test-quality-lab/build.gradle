@@ -1,0 +1,44 @@
+// =====================================================================
+// 週8「テストと品質をAIで担保する」の練習用プロジェクト（test-quality-lab）
+// ---------------------------------------------------------------------
+// 題材リポの貸出まわり（正しい実装）に加え、テストの「良し悪し」を判定する
+// 練習のため、わざと出来の悪いテスト群を同梱してある。
+//
+// 構成は題材リポと同じ（Java21 / SpringBoot3.3 / MyBatis / JUnit5+Mockito）。
+// テストは DB を使わない（Mockitoで完結）ので ./gradlew test で完結する。
+// =====================================================================
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}

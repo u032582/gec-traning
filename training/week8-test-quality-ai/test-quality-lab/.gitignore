@@ -1,0 +1,11 @@
+# ビルドで自動生成されるもの（コミット不要）
+.gradle/
+build/
+
+# IDEの設定（人によって違うので共有しない）
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+bin/
