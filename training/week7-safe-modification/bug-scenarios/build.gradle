@@ -1,0 +1,46 @@
+// =====================================================================
+// 週7「安全な改修」の練習用ミニプロジェクト（bug-scenarios）
+// ---------------------------------------------------------------------
+// 題材リポ（図書貸出管理API）の貸出まわりを切り出し、わざとバグを仕込んである。
+// 新人はこのプロジェクトで「バグを直す → テストが緑になる」を練習する。
+//
+// 構成は題材リポ・週4と同じ（Java21 / SpringBoot3.3 / MyBatis / JUnit5+Mockito）。
+// このミニプロジェクトのテストは DB を使わない（Mockitoで完結）ので、
+//   ./gradlew test
+// だけで正誤が判定できる。
+// =====================================================================
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+}
