@@ -1,0 +1,20 @@
+{
+    // 「ターミナル → タスクの実行」から選べる、研修用のボタン集。
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // きょうの成果を先生に見せる（＝自分のブランチへ送る）。中身は training/send.sh。
+            "label": "📤 成果を送信（先生に見せる）",
+            "type": "shell",
+            "command": "bash training/send.sh",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true,
+                "clear": true
+            },
+            "detail": "きょう書いたぶんを、先生が見られる場所へ送ります（提出でも採点でもありません）。"
+        }
+    ]
+}
