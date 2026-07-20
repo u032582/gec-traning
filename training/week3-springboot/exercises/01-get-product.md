@@ -13,12 +13,17 @@
 **(1) このコードは何をしているか（自分の言葉で）:**
 ```
 （例: URLの {id} を受け取り、Serviceに渡す。ServiceがMapper経由でDBから商品を1件取り、DTOに詰めて返す）
-（ここに記入）
+（自力で実装。AIは起動エラー（ProductMapper.xml の namespace 不一致・clean ビルドが必要だった件）の原因調査のみ利用。
+
+GET /api/products/{id} で URL の id を受け取り、ProductController → ProductService → ProductMapper の順で渡す。
+ProductMapper が MyBatis 経由で products テーブルから1件取得し、ProductResponse（DTO）に詰め替えて JSON で返す。）
 ```
 
 **(2) なぜこの実装にしたか（なぜ3層に分けるか、なぜDTOに詰め替えるか等）:**
 ```
-（ここに記入）
+（Customer の6ファイル構成をお手本に、商品用に同じ3層（Controller / Service / Mapper）で作った。
+DBの列（product_id, price など）と API で返す形（id, name, price）を分けるため Product と ProductResponse を分けた。
+XML の namespace と Java の package を一致させる必要があることは、エラー対応で学んだ。）
 ```
 
 ---

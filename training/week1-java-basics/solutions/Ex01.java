@@ -15,4 +15,10 @@ public class Ex01 {
     public String introduce(String name, int age) {
         return name + "（" + age + "歳）です。";
     }
+
+    public static void main(String[] args) {
+            Ex01 ex = new Ex01();
+            System.out.println(ex.greeting("田中aa"));
+            System.out.println(ex.introduce("田中", 25));
+        }
 }

@@ -16,7 +16,11 @@
 
 **(2) なぜこの実装にしたか（なぜ各Controllerでtry-catchせず共通の仕組みにするか 等）:**
 ```
-（ここに記入）
+（各Controllerでtry-catchすると404処理が重複するので、GlobalExceptionHandlerに集約した。
+エラーのJSONの形を変えるときも一箇所で済む。
+
+Serviceでthrowするのは、Mapperが返すnullを「見つからない」という業務判断に変換するのが
+Serviceの役割だから。Controllerは判断を持たず、例外は共通ハンドラが404に変換する。）
 ```
 
 ---

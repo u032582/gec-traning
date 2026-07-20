@@ -11,12 +11,23 @@
 **(1) このコードは何をしているか（自分の言葉で）:**
 ```
 （例: クエリパラメータ categoryId を受け取り、指定があればそのカテゴリの商品一覧、無ければ全件を返す）
-（ここに記入）
+（AI利用範囲: Service/Controller の書き方・コンパイルエラー修正を参考にした。Mapper/XML は自分で追加。
+
+GET /api/products に来たリクエストを Controller が受け取り、
+クエリパラメータ categoryId（省略可）を Service に渡す。
+Service は categoryId が null なら findAll、指定があれば findByCategory を呼び、
+取れた商品リストを ProductResponse のリストに詰め替えて JSON 配列で返す。）
 ```
 
 **(2) なぜこの実装にしたか（categoryId が省略されたときに全件にした理由、リストで返す理由 等）:**
 ```
-（ここに記入）
+（1件取得は URL の {id}（@PathVariable）だが、絞り込み条件は ?categoryId=2（@RequestParam）で渡すのが REST の一般的な形だから。
+
+categoryId 省略時は全件が必要なので、Mapper に findAll と findByCategory の2メソッドを用意し、
+Service で null かどうかで呼び分けた（教材のやり方A）。XML が1本で済むやり方Bは今回は使わなかった。
+
+DB の Product をそのまま返さず ProductResponse に詰め替えるのは課題1と同じ理由（API で見せる項目だけ返す）。
+ORDER BY product_id は id 昇順で返す仕様のため。）
 ```
 
 ---

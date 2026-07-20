@@ -10,16 +10,21 @@
 
 ```
 【自分で見つけた「悪いところ」と、その理由（最低4つ）】
-1.
-2.
-3.
-4.
+1.変数名が短い（a, tmp, data2）→ 何を表すか読み取りにくい
+2.料金や重量の数字がそのまま書かれている → 意味が分かりにくい
+3.calc と calcWithDiscount で同じ計算がコピペされている → 直すとき2か所直し忘れしやすい
+4.catch が空 → 壊れた行があっても気づけない
 
 【どう直したか（要点）】
-
+変数名を totalFee / lineFee などに変更した。
+料金・重量の数字を定数にした。
+料金計算のifを feeFor に切り出して、calc と calcWithDiscount の重複をなくした。
+空のcatchをやめ、壊れた行はログを出してスキップするようにした。
 
 【振る舞いを変えていないと言える根拠（どのテストで保証したか）】
-
+改修の前後で ShippingFeeCalculatorCharacterizationTest が全部 PASSED した。
+（./gradlew test が BUILD SUCCESSFUL）
+戻り値の計算結果が変わっていないことの根拠になる。
 ```
 
 ---
