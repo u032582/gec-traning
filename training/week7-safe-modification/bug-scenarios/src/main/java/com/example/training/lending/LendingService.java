@@ -102,6 +102,7 @@ public class LendingService {
         //   何回か貸し借りするうちに在庫が実際より少なく見える不整合が起きる。
 
         // 返却後の最新状態を返す。
+        bookMapper.incrementAvailable(lending.getBookId());
         return lendingMapper.findById(lendingId);
     }
 
