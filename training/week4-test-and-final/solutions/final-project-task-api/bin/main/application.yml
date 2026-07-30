@@ -1,0 +1,25 @@
+# =====================================================================
+# タスク管理API の設定ファイル
+# ---------------------------------------------------------------------
+# 接続先は週0で作った PostgreSQL の training データベース。
+# パスワードは週0で自分が設定したものに置き換えること。
+# （研修では postgres を例にしているが、各自の設定に合わせる）
+# =====================================================================
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/training
+    username: postgres
+    password: postgres   # ← 週0で設定した自分のパスワードに書き換える
+    driver-class-name: org.postgresql.Driver
+
+# MyBatis の設定
+mybatis:
+  # XMLマッパーの置き場所。
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # DBの snake_case 列名（due_date）を Javaの camelCase（dueDate）に自動変換する。
+    map-underscore-to-camel-case: true
+
+# 起動ポート（標準は8080。変えたい場合のみ）
+server:
+  port: 8080

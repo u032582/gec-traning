@@ -1,0 +1,16 @@
+{
+    "editor.inlineSuggest.enabled": false,
+    "editor.suggest.preview": false,
+    "editor.quickSuggestions": {
+        "other": "off",
+        "comments": "off",
+        "strings": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.wordBasedSuggestions": "off",
+    "cursor.cpp.disabledLanguages": [
+        "java",
+        "sql"
+    ],
+    "java.compile.nullAnalysis.mode": "disabled"
+}

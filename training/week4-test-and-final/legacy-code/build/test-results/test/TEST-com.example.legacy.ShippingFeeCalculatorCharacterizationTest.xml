@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-07-17T00:28:32" hostname="DESKTOP-F4OU2PR" time="0.102">
+  <properties/>
+  <testcase name="calc: 空リストは0" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.045"/>
+  <testcase name="calc: 重量の境界値（2000ちょうど/5000ちょうど）" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <testcase name="calc: east/west/その他 を1件ずつ合算する" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <testcase name="calc: 壊れた行は無視されて合算に含まれない（現状の挙動）" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.018"/>
+  <testcase name="calcWithDiscount: 複数行の合算にランク3割引" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <testcase name="calcWithDiscount: ランク0（対象外）は割引なし" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <testcase name="calcWithDiscount: ランク1は5%引き" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <testcase name="calcWithDiscount: ランク2は10%引き" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.004"/>
+  <testcase name="calcWithDiscount: ランク3は20%引き" classname="com.example.legacy.ShippingFeeCalculatorCharacterizationTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[壊れた行をスキップ: east (Index 1 out of bounds for length 1)
+壊れた行をスキップ: east,abc (For input string: "abc")
+]]></system-err>
+</testsuite>

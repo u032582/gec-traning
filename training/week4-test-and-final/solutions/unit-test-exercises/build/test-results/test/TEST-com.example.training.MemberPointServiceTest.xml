@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.training.MemberPointServiceTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-07-15T00:51:23" hostname="DESKTOP-F4OU2PR" time="2.033">
+  <properties/>
+  <testcase name="加算0以下_例外_DBアクセスは一切しない()" classname="com.example.training.MemberPointServiceTest" time="1.963"/>
+  <testcase name="加算成功_既存100ptに50pt加算で150を返しupdateが呼ばれる()" classname="com.example.training.MemberPointServiceTest" time="0.043"/>
+  <testcase name="会員なし_findByIdがnullなら例外_updateは呼ばれない()" classname="com.example.training.MemberPointServiceTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/home/luka/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.19/154da3a65b4f4a909d3e5bdec55d1b2b4cbb6ce1/byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>

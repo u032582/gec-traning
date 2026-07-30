@@ -56,22 +56,22 @@ AIに「POST /api/lendings で在庫が減るまでの流れをファイル名�
 
 ```
 【POST /api/lendings で在庫が1減るまでの流れ（ファイル名:行）】
- 1. 窓口       : LendingController.java:__  の ______ が受ける
- 2. 業務処理    : LendingService.java:__    の lend メソッドへ
- 3. 借り主確認  : ______.java:__  で実在チェック（いなければ404）
- 4. 在庫を減らす : ______.java:__  の ______ を呼ぶ
- 5. 在庫SQL     : ______.xml:__   の <update id="______">（実際のUPDATE）
- 6. 貸出記録作成 : ______.java:__  の ______ を呼ぶ
+ 1. 窓口       : LendingController.java:35  の lend が受ける
+ 2. 業務処理    : LendingService.java:52    の lend メソッドへ
+ 3. 借り主確認  : LendingService.java:54  の memberService.findByIdで実在チェック（いなければ404）
+ 4. 在庫を減らす : LendingService.java:57  の bookMapper.decrementAvailable を呼ぶ
+ 5. 在庫SQL     : BookMapper.xml:53   の <update id="decrementAvailable">（実際のUPDATE）
+ 6. 貸出記録作成 : LendingService.java:75  の lendingMapper.insert を呼ぶ
 
 【在庫0を弾く守りは、どこに何個あるか】
- - Java側（Service）: ______.java:__（どういう条件で弾く？）
- - SQL側（XML）     : ______.xml:__（WHERE に何が書いてある？なぜ事故を防げる？）
+ - Java側（Service）: LendingService.java:58〜64（更新0なら BusinessRuleException など）
+ - SQL側（XML）     : BookMapper.xml:56〜57（WHERE にはavailable_count > 0）
 
 【2テーブル更新を1まとまりにしているアノテーションは何か・どのファイルの何行目か】
-
+ LendingService.java:51 の @Transactional
 
 【AIの要約が取りこぼした/間違えた点はあったか（特にSQL側の守り）】
-
+聞いていない
 ```
 
 ---

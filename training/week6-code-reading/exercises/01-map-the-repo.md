@@ -49,32 +49,32 @@ AIに、例えばこう聞いてみます。
 
 ```
 【パッケージ構成（実際に開いて確認した）】
- - book/     : （どんなファイルがあり、役割は？）
- - member/   :
- - lending/  :
- - common/   :
+ - book/     :Controller / Service / Mapper / Book / BookResponse。書籍の3層
+ - member/   :Service / Mapper / Member。Controllerは無い
+ - lending/  :Controller / Service / Mapper / Lending / Request / Response。貸出・返却
+ - common/   :例外まわり（NotFound / BusinessRule / Handler）。共通部品
 
 【3層構造の地図（このリポではどのファイルがどの層か）】
- - 窓口（Controller）        :
- - 判断・処理（Service）      :
- - DB出し入れ（Mapper+XML）   :
- - データの入れ物（エンティティ/DTO）:
+ - 窓口（Controller）        :BookController, LendingController
+ - 判断・処理（Service）      :BookService, MemberService, LendingService
+ - DB出し入れ（Mapper+XML）   :各*Mapper.java と resources/mapper/*.xml
+ - データの入れ物（エンティティ/DTO）:Book, Member, Lending と *Response / *Request
 
 【エントリポイント（アプリの入口）はどのファイルか】
-
+LibraryApplication.java（main あり）
 
 【AIの要約と、自分で確かめた事実で、食い違いはあったか】
-
+無し。memberにControllerが無いことも、自分で開いて確認した
 ```
 
 ---
 
 ## 3. 完成条件（自分で判定できる）
 
-- [ ] 4つのパッケージそれぞれの役割を、実際に開いて確認して書いた
-- [ ] 3層のどこに何があるかを地図にした
-- [ ] エントリポイント（起動クラス）を自分で見つけた
-- [ ] AIの要約を鵜呑みにせず、自分で裏取りした（食い違いの有無を書いた）
+- [x] 4つのパッケージそれぞれの役割を、実際に開いて確認して書いた
+- [x] 3層のどこに何があるかを地図にした
+- [x] エントリポイント（起動クラス）を自分で見つけた
+- [x] AIの要約を鵜呑みにせず、自分で裏取りした（食い違いの有無を書いた）
 
 ---
 

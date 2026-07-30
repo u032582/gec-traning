@@ -55,19 +55,20 @@ AIによっては、`.distinctBy(...)` や `.sortDescending()` や `.takeFirst(3
 
 ```
 【AIに投げたお題（プロンプト）】
-
+List<Integer> から、重複を消して、大きい順に並べて、最初の3件だけ取り出すコードを、Stream1行で書いて
 
 【返ってきたコードの、疑わしかった箇所（メソッド名など）】
-
+sortDescending() が怪しかった
 
 【どうやって裏を取ったか（コンパイル/公式/聞き返し のどれで、結果どうだったか）】
-
+javac で cannot find symbol: method sortDescending() が出た
 
 【実在しなかった場合、正しい形にどう直したか】
+sorted(Comparator.reverseOrder()) に置き換えて、[5, 3, 1] を確認
 
 
 【この体験から学んだ「AIの間違いの見抜き方」を一言で】
-
+見覚えのないメソッドはコンパイルで確かめる
 ```
 
 ---

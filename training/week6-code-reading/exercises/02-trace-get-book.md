@@ -54,18 +54,18 @@ AIにこう聞いてもよい:
 
 ```
 【GET /api/books/{id} の処理フロー（ファイル名:行 で書く）】
- 1. 窓口   : BookController.java:__  の ______ メソッドが受ける
- 2. 判断   : BookService.java:__    の ______ を呼ぶ
- 3. DB出入 : BookMapper.java:__     の ______ を呼ぶ
- 4. SQL    : BookMapper.xml:__      の <select id="______"> が実行される
- 5. 戻り   : 結果の Book を ______ に詰め替えて返す（どのクラス？）
+ 1. 窓口   : BookController.java:43  の get メソッドが受ける
+ 2. 判断   : BookService.java:35    の findById を呼ぶ
+ 3. DB出入 : BookMapper.java:25     の findById を呼ぶ
+ 4. SQL    : BookMapper.xml:40      の <select id="findById"> が実行される
+ 5. 戻り   : 結果の Book を BookResponse に詰め替えて返す（どのクラス？）
 
 【存在しないIDのとき、404はどこで決まるか（ファイル名:行）】
- - 例外を投げる場所   :
- - 例外を404に変える場所:
+ - 例外を投げる場所   :BookService.java:38
+ - 例外を404に変える場所: GlobalExceptionHandler.java:30〜32
 
 【AIが挙げた行番号と、自分で開いて確かめた行番号で、ズレはあったか】
-
+聞いていない
 ```
 
 ---
