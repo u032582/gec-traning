@@ -50,6 +50,14 @@ public class LendingService {
         // ② 在庫を1減らす。在庫が残っていなければ更新件数0が返る＝貸せない。
         int decremented = bookMapper.decrementAvailable(request.getBookId());
 
+        if (decremented == 0) {
+            if (bookMapper.findById(request.getBookId()) == null) {
+                throw new NotFoundException("書籍", request.getBookId());
+            }
+                throw new BusinessRuleException(
+                    "貸出できません（在庫がありません：bookId =" + request.getBookId());
+        }
+
         // TODO(bug-1): 在庫が減らせなかった（decremented == 0 ＝ 在庫切れ）ときの処理が抜けている。
         //   このままだと、在庫0でも下の insert まで進んでしまい、
         //   「在庫が無いのに貸出記録だけできる」不整合が起きる。
@@ -94,6 +102,7 @@ public class LendingService {
         //   何回か貸し借りするうちに在庫が実際より少なく見える不整合が起きる。
 
         // 返却後の最新状態を返す。
+        bookMapper.incrementAvailable(lending.getBookId());
         return lendingMapper.findById(lendingId);
     }
 
