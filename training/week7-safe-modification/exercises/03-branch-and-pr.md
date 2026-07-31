@@ -71,19 +71,19 @@ GitHub等の画面で「Compare & pull request」からPRを作成します。�
 
 ```
 【切ったブランチ名】
-
+fix/lending-stock-integrity
 
 【コミットの単位と、そのメッセージ】
-
+1コミット。fix: 在庫切れ時に貸出記録を作らないよう修正し、返却時に在庫を戻すよう修正
 
 【PR本文に書いた「なぜ直るか」「影響範囲」（要約）】
-
+lend は在庫0なら例外で insert しない。returnBook は incrementAvailable で在庫を戻す。変更は LendingService のみ。
 
 【fetch origin を先にやる理由を、自分の言葉で】
-
+リモートの最新を取ってから push しないと、他の人の変更とぶつかったり古いまま送ったりしやすいから
 
 【レビュアーに見てほしい点（自分で1つ挙げる）】
-
+在庫切れのとき本当に insert まで進まないか
 ```
 
 ---
