@@ -108,6 +108,7 @@ cd test-quality-lab
 | 良いテストと悪いテストの違いが分からない | このファイルの「1. 狙い」＋課題01の見本と模範 |
 | silent failure がピンと来ない | 課題03＋`OverdueChecker.java` のコメント（どこが握りつぶしか書いてある） |
 | テストの書き方を思い出したい | [週4のMockito課題](../week4-test-and-final/exercises/02-mockito-service.md) |
+| カタカナ用語・メソッド名の英語が読めない | [週6のコラム「識別子の英語を読む」](../week6-code-reading/README.md#コラム-識別子の英語を読む読解の地味だけど本当の急所)（よく出る単語の表つき） |
 | 質問の仕方 | [研修トップのREADME「3. 質問テンプレート」](../README.md#3-質問テンプレート詰まったときの聞き方) |
 
 それでは、[課題01: ダメなテストを見抜く](exercises/01-judge-bad-tests.md) から始めてください。

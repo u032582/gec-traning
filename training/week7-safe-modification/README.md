@@ -119,6 +119,7 @@ git push -u origin fix/lending-stock # ③push
 |---|---|
 | bug-scenarios が起動しない | [bug-scenarios/](bug-scenarios/) の中で `./gradlew test`。初回はDL待ち |
 | どこにバグがあるか分からない | 落ちているテストの名前と中身を読む＋`LendingService.java` の `// TODO(bug-N)` |
+| メソッド名の英語（`incrementAvailable` 等）が読めない | [週6のコラム「識別子の英語を読む」](../week6-code-reading/README.md#コラム-識別子の英語を読む読解の地味だけど本当の急所)（よく出る単語の表つき） |
 | 正しい実装が知りたくなった | 題材リポ [project-repo](../project-repo/) の同名ファイル（ただし先に自分で直してから） |
 | Git/PRのやり方 | このファイルの「7. Git/PRのおさらい」＋課題03 |
 | 質問の仕方 | [研修トップのREADME「3. 質問テンプレート」](../README.md#3-質問テンプレート詰まったときの聞き方) |
