@@ -9,6 +9,7 @@
 // =====================================================================
 plugins {
     id 'java'
+    id 'jacoco'   // カバレッジ計測。課題01で「数字に騙されない」を目で見せるために入れてある
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
 }
@@ -40,5 +41,17 @@ test {
     useJUnitPlatform()
     testLogging {
         events 'passed', 'skipped', 'failed'
+    }
+    // ./gradlew test を叩くだけでカバレッジのHTMLレポートも出るようにしておく。
+    // 新人に別コマンドを覚えさせないため（見るのは build/reports/jacoco/test/html/index.html）。
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = false
+        csv.required = false
     }
 }
