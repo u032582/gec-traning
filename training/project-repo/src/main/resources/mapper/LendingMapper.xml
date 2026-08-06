@@ -39,6 +39,14 @@
         ORDER BY lent_at DESC, id DESC
     </select>
 
+    <select id="findOverdue" resultMap="lendingResultMap">
+        SELECT id, book_id, member_id, lent_at, due_date, returned_at
+        FROM lendings
+        WHERE returned_at IS NULL
+          AND due_date &lt; #{today}
+        ORDER BY due_date ASC, id ASC
+    </select>
+
     <!--
       返却済みにする。WHERE に returned_at IS NULL を入れることで、
       まだ返していないものだけを対象にする。すでに返却済みなら1行も

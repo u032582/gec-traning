@@ -113,4 +113,8 @@ public class LendingService {
         memberService.findById(memberId);  // 実在チェック（いなければ404）
         return lendingMapper.findByMemberId(memberId);
     }
+
+    public List<Lending> findOverdue(LocalDate today){
+        return lendingMapper.findOverdue(today);
+    }
 }

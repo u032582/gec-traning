@@ -57,4 +57,11 @@ public class LendingController {
                 .map(LendingResponse::new)
                 .toList();
     }
+
+    @GetMapping("/api/lendings/overdue")
+    public List<LendingResponse> findOverdue(){
+        return lendingService.findOverdue(LocalDate.now()).stream()
+                .map(LendingResponse::new)
+                .toList();
+    }
 }

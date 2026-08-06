@@ -1,5 +1,7 @@
 package com.example.training.lending;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -99,5 +101,18 @@ class LendingServiceTest {
 
         // 二重返却をはじいたので、在庫を戻す処理は呼ばれないこと。
         verify(bookMapper, never()).incrementAvailable(any());
+    }
+
+    @Test
+    void 延滞一覧_Mapperの結果をそのまま返す(){
+        LocalDate today = TODAY;
+        Lending overdue = new Lending();
+
+        when(lendingMapper.findOverdue(today)).thenReturn(List.of(overdue));
+
+        List<Lending> result = lendingService.findOverdue(today);
+
+        assertThat(result).hasSize(1);
+        verify(lendingMapper).findOverdue(today);
     }
 }
