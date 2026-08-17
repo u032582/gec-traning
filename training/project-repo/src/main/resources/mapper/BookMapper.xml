@@ -43,6 +43,16 @@
         WHERE id = #{id}
     </select>
 
+    <select id="countByCategory" resultType="com.example.training.book.CategoryStatsResponse">
+        SELECT category,
+       COUNT(*)              AS title_count,
+       SUM(total_count)      AS total_count,
+       SUM(available_count)  AS available_count
+        FROM books
+        GROUP BY category
+        ORDER BY category
+    </select>
+
     <!--
       貸出可能数を1減らす。WHERE に available_count > 0 を入れることで、
       在庫が残っているときだけ減る。もし0なら1行も更新されず、

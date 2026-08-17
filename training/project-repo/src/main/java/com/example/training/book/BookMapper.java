@@ -21,6 +21,8 @@ public interface BookMapper {
      */
     List<Book> findAll(@Param("category") String category);
 
+    List<CategoryStatsResponse> countByCategory();
+
     /** id を指定して1件取得。いなければ null。 */
     Book findById(@Param("id") Long id);
 

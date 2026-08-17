@@ -29,6 +29,10 @@ public class BookService {
         return bookMapper.findAll(category);
     }
 
+    public List<CategoryStatsResponse> countByCategory(){
+        return bookMapper.countByCategory();
+    }
+
     /**
      * 1件取得。見つからなければ {@link NotFoundException}（→404）。
      */

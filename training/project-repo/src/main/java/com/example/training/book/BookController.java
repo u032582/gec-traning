@@ -38,6 +38,11 @@ public class BookController {
                 .toList();
     }
 
+    @GetMapping("/stats/by-category")
+    public List<CategoryStatsResponse> statsByCategory(){
+        return bookService.countByCategory();
+    }
+
     /** 単体取得: GET /api/books/{id} → 200 OK（無ければ404）。 */
     @GetMapping("/{id}")
     public BookResponse get(@PathVariable Long id) {
