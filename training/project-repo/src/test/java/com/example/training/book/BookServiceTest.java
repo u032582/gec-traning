@@ -26,7 +26,7 @@ class BookServiceTest {
 
     @Test
     void 分類別集計_Mapperの数字をそのまま返す() {
-        CategoryStatsResponse tech = new CategoryStatsResponse("技術書", 3, 6, 4);
+        CategoryStatsResponse tech = new CategoryStatsResponse("技術書",3,6,4);
         when(bookMapper.countByCategory()).thenReturn(List.of(tech));
 
         List<CategoryStatsResponse> result = bookService.countByCategory();
