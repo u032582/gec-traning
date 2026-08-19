@@ -39,6 +39,13 @@
         ORDER BY lent_at DESC, id DESC
     </select>
 
+    <select id="countUnreturnedByMemberId" resultType="int">
+        SELECT COUNT(*)
+        FROM lendings
+        WHERE member_id = #{memberId}
+        AND returned_at IS NULL
+    </select>
+
     <!--
       返却済みにする。WHERE に returned_at IS NULL を入れることで、
       まだ返していないものだけを対象にする。すでに返却済みなら1行も

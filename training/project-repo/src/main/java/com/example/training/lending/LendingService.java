@@ -27,6 +27,7 @@ public class LendingService {
 
     /** 返却期限は貸出日から何日後か（この題材の簡易ルール）。 */
     private static final int LENDING_PERIOD_DAYS = 14;
+    private static final int LENDING_LIMIT_COUNT = 5;
 
     private final LendingMapper lendingMapper;
     private final BookMapper bookMapper;
@@ -52,6 +53,11 @@ public class LendingService {
     public Lending lend(LendingRequest request, LocalDate today) {
         // ① 借り主が実在するか（いなければ404）。書籍の存在は次の在庫更新で兼ねて確認する。
         memberService.findById(request.getMemberId());
+
+        int unreturnedCount = lendingMapper.countUnreturnedByMemberId(request.getMemberId());
+        if (unreturnedCount >= LENDING_LIMIT_COUNT) {
+            throw new BusinessRuleException("貸出できません(貸出数が限度を超えています): memberId=" + request.getMemberId());
+        }
 
         // ② 在庫を1減らす。在庫が残っていなければ更新件数0が返る＝貸せない。
         int decremented = bookMapper.decrementAvailable(request.getBookId());

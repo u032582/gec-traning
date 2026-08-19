@@ -25,6 +25,8 @@ public interface LendingMapper {
     /** ある利用者の貸出履歴を、貸出日の新しい順で取得。 */
     List<Lending> findByMemberId(@Param("memberId") Long memberId);
 
+    int countUnreturnedByMemberId(@Param("memberId") Long memberId);
+
     /**
      * 返却済みにする（returned_at に返却日を入れる）。
      * まだ返却されていない（returned_at IS NULL）ものだけを対象にする。

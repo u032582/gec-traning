@@ -100,4 +100,41 @@ class LendingServiceTest {
         // 二重返却をはじいたので、在庫を戻す処理は呼ばれないこと。
         verify(bookMapper, never()).incrementAvailable(any());
     }
+
+    @Test
+    void 貸出失敗_貸出数が上限を超えていると例外で貸出記録は作られない() {
+        LendingRequest request = new LendingRequest();
+        request.setBookId(3L);
+        request.setMemberId(1L);
+
+        when(lendingMapper.countUnreturnedByMemberId(1L)).thenReturn(5);
+        when(memberService.findById(1L)).thenReturn(new Member());
+
+        assertThatThrownBy(() -> lendingService.lend(request, TODAY))
+                .isInstanceOf(BusinessRuleException.class);
+
+        verify(lendingMapper, never()).insert(any());
+        verify(bookMapper, never()).decrementAvailable(any());
+
+    }
+
+    @Test
+    void 貸出成功_貸出記録が作られる() {
+        LendingRequest request = new LendingRequest();
+        request.setBookId(3L);
+        request.setMemberId(1L);
+
+        when(memberService.findById(1L)).thenReturn(new Member());
+        when(bookMapper.decrementAvailable(3L)).thenReturn(1);
+        when(lendingMapper.countUnreturnedByMemberId(1L)).thenReturn(4);
+
+        Lending result = lendingService.lend(request, TODAY);
+
+        verify(bookMapper).decrementAvailable(3L);
+        verify(lendingMapper).insert(any());
+
+        assertThat(result.getLentAt()).isEqualTo(TODAY);
+        assertThat(result.getDueDate()).isEqualTo(TODAY.plusDays(14));
+        assertThat(result.getReturnedAt()).isNull();
+    }
 }
