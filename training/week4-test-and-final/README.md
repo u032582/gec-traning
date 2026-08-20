@@ -66,6 +66,8 @@ week4-test-and-final/
     legacy-refactored/      課題3の改修後コード + 解説
 ```
 
+> 📁 **作業フォルダはどこ？**: 週1と同じで、自分のコードは **`work/自分のハンドル/`** の下に書きます（例: 総合課題なら `work/tanaka/week4/task-api/`）。`solutions/`（模範解答）の中や、教材ファイルそのものには書かないこと。総合課題の「AI生成コードの説明記入欄」も、[final-project-spec.md](final-project-spec.md) に直接打ち込まず、欄をコピーして `work/自分のハンドル/week4/` の中のファイルに書いてください（[研修トップのREADME](../README.md#毎日の終わりに成果を送信する先生に見せる) 参照）。
+
 ---
 
 ## 5. テストの実行環境（Gradle）
