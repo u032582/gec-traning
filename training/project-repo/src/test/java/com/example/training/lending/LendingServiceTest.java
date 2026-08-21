@@ -102,7 +102,7 @@ class LendingServiceTest {
     }
 
     @Test
-    void 貸出失敗_貸出数が上限を超えていると例外で貸出記録は作られない() {
+    void 貸出失敗_未返却が5冊なら上限到達で断られ在庫も記録も触らない() {
         LendingRequest request = new LendingRequest();
         request.setBookId(3L);
         request.setMemberId(1L);
@@ -119,7 +119,7 @@ class LendingServiceTest {
     }
 
     @Test
-    void 貸出成功_貸出記録が作られる() {
+    void 貸出成功_未返却が4冊なら上限内で借りられる() {
         LendingRequest request = new LendingRequest();
         request.setBookId(3L);
         request.setMemberId(1L);
