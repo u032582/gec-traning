@@ -15,6 +15,21 @@
                 "clear": true
             },
             "detail": "きょう書いたぶんを、先生が見られる場所へ送ります（提出でも採点でもありません）。"
+        },
+        {
+            // 先生が直した教材を、自分の手元に取り込む。中身は training/update.sh。
+            // 「送信」が あなた→先生 の向きなら、こちらは 先生→あなた の向き。
+            "label": "📥 教材を更新（先生の直しを取り込む）",
+            "type": "shell",
+            "command": "bash training/update.sh",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "focus": true,
+                "clear": true
+            },
+            "detail": "先生が直した教材（説明の追加・課題の改善）を、あなたの手元に取り込みます。"
         }
     ]
 }

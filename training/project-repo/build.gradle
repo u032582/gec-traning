@@ -9,6 +9,8 @@
 //   ./gradlew build      … テスト込みでビルド
 //   ./gradlew bootRun    … アプリを起動（要: PostgreSQLが起動し、テーブルがある）
 //   ./gradlew test       … 単体テストを実行（DB不要。Mockitoで完結する）
+//                         ※ 週8の課題04で Mapper層のテスト（実際にSQLを走らせる）を足すと、
+//                            ここから PostgreSQL の起動が必要になる。
 // =====================================================================
 plugins {
     id 'java'

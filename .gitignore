@@ -5,3 +5,11 @@
 
 # Javaのコンパイル成果物（javacが生成する。ソースだけを管理する）
 *.class
+
+# ビルドで自動生成されるもの（Gradleプロジェクト共通。ソースだけを管理する）
+# ※ 各プロジェクトの .gitignore に任せず、ここでも塞いでおく。
+#   新人の「送信」（training/send.sh）は git add -A で全部拾うので、
+#   .gitignore の無いプロジェクトが1つでもあると、生成物がPRの差分に混ざる。
+.gradle/
+build/
+bin/
