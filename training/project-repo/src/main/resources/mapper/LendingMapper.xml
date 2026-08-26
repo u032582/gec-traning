@@ -51,4 +51,11 @@
           AND returned_at IS NULL
     </update>
 
+    <update id="updateDueDate">
+        UPDATE lendings
+        SET due_date = #{dueDate}
+        WHERE id = #{id}
+         AND returned_at IS NULL
+    </update>
+
 </mapper>

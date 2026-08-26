@@ -106,6 +106,21 @@ public class LendingService {
         return lendingMapper.findById(lendingId);
     }
 
+    @Transactional
+    public Lending extend(Long lendingId, LocalDate today) {
+        Lending lending = lendingMapper.findById(lendingId);
+        if (lending == null) {
+            throw new NotFoundException("貸出記録", lendingId);
+        }
+        if (lending.getReturnedAt() != null) {
+            throw new BusinessRuleException("返却済みの本は延長できません: lendingId=" + lendingId);
+        }
+
+        lending.setDueDate(lending.getDueDate().plusDays(LENDING_PERIOD_DAYS));
+        lendingMapper.updateDueDate(lendingId, lending.getDueDate());
+        return lendingMapper.findById(lendingId);
+    }
+
     /**
      * ある利用者の貸出履歴を取得。利用者が実在しなければ {@link NotFoundException}（→404）。
      */

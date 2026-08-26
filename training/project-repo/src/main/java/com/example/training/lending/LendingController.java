@@ -47,6 +47,11 @@ public class LendingController {
         return new LendingResponse(lendingService.returnBook(id, LocalDate.now()));
     }
 
+    @PostMapping("/api/lendings/{id}/extend")
+    public LendingResponse extend(@PathVariable Long id) {
+        return new LendingResponse(lendingService.extend(id, LocalDate.now()));
+    }
+
     /**
      * 貸出履歴: GET /api/members/{id}/lendings → 200 OK + 貸出配列（新しい順）。
      * 利用者が無ければ404。

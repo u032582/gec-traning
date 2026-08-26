@@ -100,4 +100,34 @@ class LendingServiceTest {
         // 二重返却をはじいたので、在庫を戻す処理は呼ばれないこと。
         verify(bookMapper, never()).incrementAvailable(any());
     }
+
+    @Test
+    void 延長成功_返却期限が延長される() {
+        Lending lending = new Lending();
+        lending.setId(1L);
+        lending.setDueDate(TODAY);
+
+        when(lendingMapper.findById(1L)).thenReturn(lending);
+
+        Lending result = lendingService.extend(1L, TODAY);
+
+        assertThat(result.getDueDate()).isEqualTo(TODAY.plusDays(14));
+
+        verify(lendingMapper).updateDueDate(1L, TODAY.plusDays(14));
+    }
+
+    @Test
+    void 延長失敗_すでに返却済みなら例外で延長されない() {
+        Lending lending = new Lending();
+        lending.setId(1L);
+        lending.setDueDate(TODAY);
+        lending.setReturnedAt(TODAY);
+
+        when(lendingMapper.findById(1L)).thenReturn(lending);
+
+        assertThatThrownBy(() -> lendingService.extend(1L, TODAY))
+                .isInstanceOf(BusinessRuleException.class);
+        
+        verify(lendingMapper, never()).updateDueDate(1L, TODAY.plusDays(14));
+    }
 }

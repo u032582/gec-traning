@@ -31,4 +31,6 @@ public interface LendingMapper {
      * 更新できた件数を返す（0なら「すでに返却済み」を意味する）。
      */
     int markReturned(@Param("id") Long id, @Param("returnedAt") LocalDate returnedAt);
+
+    int updateDueDate(@Param("id") Long id, @Param("dueDate") LocalDate dueDate);
 }
