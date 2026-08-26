@@ -128,6 +128,24 @@ verify(memberMapper, never()).updatePoint(anyInt(), anyInt()); // 一度も呼�
 </details>
 
 <details>
+<summary>「InvalidUseOfMatchersException」と出て落ちる</summary>
+
+`anyInt()` のようなマッチャと、生の値（`1` や `150`）を**混ぜて**書いています。**マッチャを1つでも使ったら、その呼び出しの引数は全部マッチャにそろえる**——これがMockitoの決まりです。
+
+```java
+verify(memberMapper).updatePoint(1, anyInt());      // ✗ 生の値とマッチャが混ざっている
+verify(memberMapper).updatePoint(eq(1), anyInt());  // ○ eq() で包んで、全部マッチャにそろえた
+```
+
+> 用語メモ: **`eq(...)`（イーキュー）** … 「この値と等しい引数」という意味のマッチャ（`org.mockito.ArgumentMatchers.eq`）。`eq(1)` は結局「1のとき」なので、意味は生の `1` と同じです。**生の値にマッチャの服を着せて、隣に並べられるようにする**もの、と考えると分かりやすいです。
+
+なぜ混ぜられないのか、も知っておくと忘れません。Mockitoのマッチャは「何番目の引数か」を覚えているのではなく、**書かれた順に裏側へ積まれていく**作りになっています。そこに生の値が混ざると、積まれたマッチャがどの引数の分だったのか対応が取れなくなる——だから「使うなら全部」なのです。ルールとして覚えるより、この仕組みを覚えるほうが早いです。
+
+なお、この形は模範解答や後の週の題材リポでも普通に出てきます（例: `verify(lendingMapper).markReturned(eq(10L), any(LocalDate.class))`）。見かけたら「ああ、そろえているんだな」と読めればOKです。
+
+</details>
+
+<details>
 <summary>「UnnecessaryStubbingException」と出て落ちる</summary>
 
 `when(...).thenReturn(...)` で仕込んだスタブが、テスト中に一度も使われていません。ケース3のように「処理がそこまで進まない」テストでは、スタブを書かないのが正解です。
