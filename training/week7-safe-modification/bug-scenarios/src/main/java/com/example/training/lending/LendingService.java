@@ -54,15 +54,10 @@ public class LendingService {
             if (bookMapper.findById(request.getBookId()) == null) {
                 throw new NotFoundException("書籍", request.getBookId());
             }
-                throw new BusinessRuleException(
-                    "貸出できません（在庫がありません：bookId =" + request.getBookId());
+            throw new BusinessRuleException(
+                "貸出できません（在庫がありません)：bookId =" + request.getBookId());
         }
-
-        // TODO(bug-1): 在庫が減らせなかった（decremented == 0 ＝ 在庫切れ）ときの処理が抜けている。
-        //   このままだと、在庫0でも下の insert まで進んでしまい、
-        //   「在庫が無いのに貸出記録だけできる」不整合が起きる。
-        //   ※ 本や利用者が存在しない場合の 404 分岐も、正しい実装では必要
-        //     （落ちているテストが要求している範囲で直せばよい）。
+      
 
         // ③ 貸出記録を作る（貸出日＝今日、返却期限＝2週間後、返却日は未設定＝貸出中）。
         Lending lending = new Lending();
@@ -97,9 +92,6 @@ public class LendingService {
                     "返却できません（すでに返却済みです）: lendingId=" + lendingId);
         }
 
-        // TODO(bug-2): 返却したのに、その本の在庫（available_count）を戻す処理が抜けている。
-        //   このままだと、返しても本棚の貸出可能数が増えないので、
-        //   何回か貸し借りするうちに在庫が実際より少なく見える不整合が起きる。
 
         // 返却後の最新状態を返す。
         bookMapper.incrementAvailable(lending.getBookId());
