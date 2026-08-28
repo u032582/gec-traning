@@ -106,8 +106,17 @@ public class LendingService {
         return lendingMapper.findById(lendingId);
     }
 
+    /**
+     * 返却期限を延長する。
+     *
+     * <p>手順: ①貸出記録が実在するか確認 → ②返却期限を2週間延長する（すでに返却済みなら失敗）
+     * ②で更新できなかったら延長できないので {@link BusinessRuleException}（→409）。
+     *
+     * @param lendingId 延長対象の貸出記録ID。
+     */
+
     @Transactional
-    public Lending extend(Long lendingId, LocalDate today) {
+    public Lending extend(Long lendingId) {
         Lending lending = lendingMapper.findById(lendingId);
         if (lending == null) {
             throw new NotFoundException("貸出記録", lendingId);
@@ -117,7 +126,10 @@ public class LendingService {
         }
 
         lending.setDueDate(lending.getDueDate().plusDays(LENDING_PERIOD_DAYS));
-        lendingMapper.updateDueDate(lendingId, lending.getDueDate());
+        int updated = lendingMapper.updateDueDate(lendingId, lending.getDueDate());
+        if (updated == 0) {
+            throw new BusinessRuleException("返却期限を延長できません: lendingId=" + lendingId);
+        }
         return lendingMapper.findById(lendingId);
     }
 

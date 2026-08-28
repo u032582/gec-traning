@@ -55,7 +55,7 @@
         UPDATE lendings
         SET due_date = #{dueDate}
         WHERE id = #{id}
-         AND returned_at IS NULL
+          AND returned_at IS NULL
     </update>
 
 </mapper>

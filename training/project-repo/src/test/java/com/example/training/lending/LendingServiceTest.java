@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import com.example.training.book.Book;
 import com.example.training.book.BookMapper;
 import com.example.training.common.BusinessRuleException;
+import com.example.training.common.NotFoundException;
 import com.example.training.member.Member;
 import com.example.training.member.MemberService;
 import java.time.LocalDate;
@@ -104,16 +105,31 @@ class LendingServiceTest {
     @Test
     void 延長成功_返却期限が延長される() {
         Lending lending = new Lending();
+        Lending updated = new Lending();
         lending.setId(1L);
         lending.setDueDate(TODAY);
+        updated.setId(1L);
+        updated.setDueDate(TODAY.plusDays(14));
 
-        when(lendingMapper.findById(1L)).thenReturn(lending);
+        when(lendingMapper.findById(1L)).thenReturn(lending, updated);
+        when(lendingMapper.updateDueDate(1L, TODAY.plusDays(14))).thenReturn(1);
 
-        Lending result = lendingService.extend(1L, TODAY);
+        Lending result = lendingService.extend(1L);
 
         assertThat(result.getDueDate()).isEqualTo(TODAY.plusDays(14));
 
         verify(lendingMapper).updateDueDate(1L, TODAY.plusDays(14));
+    }
+
+    @Test
+    void 延長失敗_貸出記録が無ければ例外() {
+
+        when(lendingMapper.findById(99L)).thenReturn(null);
+
+        assertThatThrownBy(() -> lendingService.extend(99L))
+                .isInstanceOf(NotFoundException.class);
+
+        verify(lendingMapper, never()).updateDueDate(any(), any());
     }
 
     @Test
@@ -125,9 +141,9 @@ class LendingServiceTest {
 
         when(lendingMapper.findById(1L)).thenReturn(lending);
 
-        assertThatThrownBy(() -> lendingService.extend(1L, TODAY))
+        assertThatThrownBy(() -> lendingService.extend(1L))
                 .isInstanceOf(BusinessRuleException.class);
-        
+
         verify(lendingMapper, never()).updateDueDate(1L, TODAY.plusDays(14));
     }
 }

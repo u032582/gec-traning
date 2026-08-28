@@ -49,7 +49,7 @@ public class LendingController {
 
     @PostMapping("/api/lendings/{id}/extend")
     public LendingResponse extend(@PathVariable Long id) {
-        return new LendingResponse(lendingService.extend(id, LocalDate.now()));
+        return new LendingResponse(lendingService.extend(id));
     }
 
     /**
