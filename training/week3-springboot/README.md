@@ -115,6 +115,99 @@ curl http://localhost:8080/api/customers/1
 > 用語メモ: **curl（カール）** … ターミナルからAPIにアクセスして、返事を見るための道具。WSL2のUbuntuには標準で入っていることが多いです。
 > 入っていない場合は `sudo apt install curl` で入れるか、ブラウザで `http://localhost:8080/api/customers/1` を開いても確認できます。
 
+### 手順5: いま何が動いていたのかを、自分で描く
+
+いま、ターミナルが2つ開いていますね。**1分だけ手を止めて、紙かメモに絵を描いてください。**
+
+> いま叩いた `curl http://localhost:8080/api/customers/1` は、どこへ行って、何を通って、どこから戻ってきましたか。
+> そのとき、あなたのPCの中では何がいくつ動いていますか。
+
+**うまく描けなくて当たり前です。** ここで大事なのは、きれいな図を作ることではなく、**描けないところがどこかを自分で知る**ことです。
+
+描けたら、自分の絵を見ながら次に答えてみてください。**自分の絵を指さして説明できれば、その項目はOK**です。
+
+- [ ] `./gradlew bootRun` を打ったとき、何が始まったか
+- [ ] なぜ curl は**別の**ターミナルで打つ必要があったか
+- [ ] `localhost:8080` の `8080` は何の番号か
+- [ ] PostgreSQL はこの絵のどこにいて、誰が起動したか
+- [ ] `Ctrl + C` を押すと、この絵はどう変わるか
+
+答えられない項目があれば、それが**いまのあなたの「分かっていないところ」**です。見つかったこと自体が成果なので、印だけ付けて先へ進んでください。週3の課題を進めるうちに埋まっていきますし、残ったら [質問テンプレート](../README.md#3-質問テンプレート詰まったときの聞き方) で聞けます。
+
+<details>
+<summary><b>【クリックで開く】答え合わせ — かならず、自分で描いてから開いてください</b></summary>
+
+いま動いていたのは、**3つ**です。ターミナルが2つと、その裏のPostgreSQL。
+
+```plantuml
+@startuml
+skinparam shadowing false
+skinparam ArrowColor #555555
+skinparam rectangleBackgroundColor #FFFFFF
+skinparam nodeBackgroundColor #FFFFFF
+skinparam databaseBackgroundColor #FFFFFF
+
+package "あなたのPC（WSL2）" {
+
+  rectangle "ターミナルA\n./gradlew bootRun" as TA
+  rectangle "ターミナルB\ncurl http://localhost:8080/api/customers/1" as TB
+
+  node "あなたのアプリ（Javaのプロセス）\n**ポート8080 で待ち受け**" as APP {
+    rectangle "Controller" as C
+    rectangle "Service" as S
+    rectangle "Mapper" as M
+    rectangle "XML（SQL文）" as X
+    C -down-> S
+    S -down-> M
+    M -down-> X
+  }
+
+  database "PostgreSQL（別のプロセス）\n**ポート5432 で待ち受け**\ntraining データベース / customers テーブル" as PG
+}
+
+TA -down-> APP : 起動する\n（起動したら、このターミナルは塞がる）
+TB -down-> C : ① お願いを送る
+X -down-> PG : ② SELECT を投げる
+PG -up-> X : ③ 該当の1行が返る
+C -up-> TB : ④ JSON になって返る
+
+note right of PG
+  週0で入れて、
+  sudo service postgresql start で
+  自分で起動したもの。
+  アプリを起動しても、
+  これは勝手には立ち上がらない。
+end note
+
+note right of X
+  帰りは、来た道を
+  そのまま逆にたどる。
+  XML → Mapper → Service → Controller
+end note
+
+@enduml
+```
+
+5つの問いの答えです。
+
+| 問い | 答え |
+|---|---|
+| `bootRun` で何が始まったか | **あなたのアプリがプロセスとして起動**し、8080番で「お願い」を待ち始めた。止めるまで動き続ける |
+| なぜ別のターミナルが要るか | ターミナルAは**待ち受けで塞がっている**から。同じ画面では次のコマンドを打てない |
+| `8080` とは何か | **ポート番号**。1台のPCの中で複数のプログラムが同時に待ち受けられるよう、番号で区別している。PostgreSQLは 5432番 で待っている |
+| PostgreSQL はどこにいて、誰が起動したか | 絵の下。**あなたのアプリとは別のプロセス**。週0で入れて、`sudo service postgresql start` で**自分で**起動した。アプリを起動しても、これは勝手には立ち上がらない |
+| `Ctrl + C` で何が変わるか | アプリのプロセスが終わり、**8080番で待つ人がいなくなる**。curl は `Connection refused` になる。PostgreSQL は別プロセスなので動いたまま |
+
+この絵があると、いくつかの「決まりごと」が、覚えるものではなく**当たり前のこと**に変わります。
+
+- DBを使う前に `sudo service postgresql start` が要る理由 → 別のプロセスだから、誰かが起動しないと立たない
+- **コードを直したら起動し直す**理由 → いま動いているのは、`bootRun` した**その時点の**プログラムだから
+- `Connection refused` が出る理由 → 送った先に、待っている人がいないから
+
+</details>
+
+> **なぜ、わざわざ描くのか**: この先、コマンドは全部この教材に書いてあります。だから**コピーして貼れば動いてしまう**。動くと分かった気になりますが、それは「読めば分かる」であって「自分でできる」ではありません。そして厄介なことに、**この2つは自分では区別がつきません**。区別がつくのは、絵を描いたときだけです。部品の名前（サーバー・リクエスト・curl）を知っていても、**部品の位置関係が無いと、自分の穴が空白として見えない**——「何が分からないのかも分からない」は、たいていここから来ます。だから、名前ではなく関係のほうを、いま自分の手で作っておきます。
+
 アプリを止めるときは、起動しているターミナルで **Ctrl + C** を押します。
 
 > つまずいたら: 起動や接続でエラーが出たら、下の「困ったときに見る場所」と、各課題の「つまずきポイント」を見てください。
