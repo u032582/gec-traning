@@ -91,6 +91,7 @@
 
 | 困りごと | 見る場所 |
 |---|---|
+| `::` や `stream()` など、畳まれた書き方が読めない | [週6「畳まれた書き方を、ほどいて読む」](../week6-code-reading/compact-code.md) |
 | 着地点が分からない | [週6の読解](../week6-code-reading/)で作った地図に戻る。自分で追う |
 | 既存を壊さないか不安 | [週7](../week7-safe-modification/)の影響範囲＋`./gradlew test` 全緑 |
 | テストの付け方 | [週8](../week8-test-quality-ai/)＋題材リポの既存テスト |

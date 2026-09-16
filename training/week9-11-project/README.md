@@ -114,6 +114,7 @@ git push -u origin feature/overdue-list # ③push
 
 | 困りごと | 見る場所 |
 |---|---|
+| `::` や `stream()` など、畳まれた書き方が読めない | [週6「畳まれた書き方を、ほどいて読む」](../week6-code-reading/compact-code.md) |
 | 進め方が分からない | このファイルの「3. 進め方」 |
 | どこに機能を足せばいいか分からない | [週6の読解](../week6-code-reading/)で作った地図＋各タスク仕様の「着地点のヒント」 |
 | 既存を壊さないか不安 | [週7の安全な改修](../week7-safe-modification/)の影響範囲の考え方＋`./gradlew test` 全緑 |

@@ -112,6 +112,7 @@ cd test-quality-lab
 
 | 困りごと | 見る場所 |
 |---|---|
+| `::` や `stream()` など、畳まれた書き方が読めない | [週6「畳まれた書き方を、ほどいて読む」](../week6-code-reading/compact-code.md) |
 | test-quality-lab が動かない | [test-quality-lab/](test-quality-lab/) で `./gradlew test`。初回はDL待ち |
 | 良いテストと悪いテストの違いが分からない | このファイルの「1. 狙い」＋課題01の見本と模範 |
 | silent failure がピンと来ない | 課題03＋`OverdueChecker.java` のコメント（どこが握りつぶしか書いてある） |
