@@ -6,10 +6,11 @@
 --          パスワードを聞かれたら、週0で設定したものを入力する。
 --
 -- 何度流しても同じ状態になるよう、先に DROP してから作り直す。
--- lendings が books / members を参照するので、DROP は依存の子から先に。
+-- lendings / reservations が books / members を参照するので、DROP は依存の子から先に。
 -- 動作確認しやすいよう、サンプルデータを入れている。
 -- =====================================================================
 
+DROP TABLE IF EXISTS reservations;
 DROP TABLE IF EXISTS lendings;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS members;
@@ -56,6 +57,20 @@ CREATE TABLE lendings (
     due_date     DATE     NOT NULL,
     -- returned_at : 返却日。NULL なら「まだ貸出中」を意味する。
     returned_at  DATE
+);
+
+-- ---------------------------------------------------------------------
+-- reservations : 予約（誰が・どの本を予約したか）
+-- ---------------------------------------------------------------------
+CREATE TABLE reservations (
+    id           BIGSERIAL PRIMARY KEY,
+    -- book_id / member_id : どの本を誰が予約したか。存在する行しか指せないようFK。
+    book_id      BIGINT      NOT NULL REFERENCES books(id),
+    member_id    BIGINT      NOT NULL REFERENCES members(id),
+    -- reserved_at : 予約日。
+    reserved_at  DATE        NOT NULL,
+    -- status : waiting（待ち中） / canceled（キャンセル済み）
+    status       VARCHAR(20) NOT NULL
 );
 
 -- =====================================================================
