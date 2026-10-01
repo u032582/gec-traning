@@ -1,6 +1,16 @@
 package com.example.training.reservation;
 
+import jakarta.validation.Valid;
+import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
 
 /**
  * 予約APIの窓口（Controller）。
@@ -20,10 +30,16 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
-    // TODO: POST /api/reservations
-    // ヒント: @Valid @RequestBody、LocalDate.now() を Service に渡す、
-    //        ResponseEntity.created(URI)... で 201 を返す
-
-    // TODO: GET /api/members/{id}/reservations
-    // ヒント: stream().map(ReservationResponse::new).toList()
+    @PostMapping("/api/reservations")
+    public ResponseEntity<ReservationResponse> reserve(@Valid @RequestBody ReservationRequest request) {
+        Reservation created = reservationService.reserve(request, LocalDate.now());
+        URI location = URI.create("/api/reservations/" + created.getId());
+        return ResponseEntity.created(location).body(new ReservationResponse(created));
+    }
+    @GetMapping("/api/members/{id}/reservations")
+    public List<ReservationResponse> historyByMember(@PathVariable Long id) {
+        return reservationService.findByMember(id).stream()
+                .map(ReservationResponse::new)
+                .toList();
+    }
 }
