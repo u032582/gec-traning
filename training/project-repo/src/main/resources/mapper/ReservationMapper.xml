@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+  reservations テーブルへのSQLを書くファイル。
+  namespace は Mapper インタフェースの完全名と一致させる。
+  LendingMapper.xml をなぞると迷いにくい。
+-->
+<mapper namespace="com.example.training.reservation.ReservationMapper">
+
+    <resultMap id="reservationResultMap" type="com.example.training.reservation.Reservation">
+        <id     property="id"         column="id"/>
+        <result property="bookId"     column="book_id"/>
+        <result property="memberId"   column="member_id"/>
+        <result property="status"     column="status"/>
+        <result property="reservedAt" column="reserved_at"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO reservations (book_id, member_id, reserved_at, status)
+        VALUES (#{bookId}, #{memberId}, #{reservedAt}, #{status})
+    </insert>
+
+    <select id="findByMemberId" resultMap="reservationResultMap">
+        SELECT id, book_id, member_id, reserved_at, status
+        FROM reservations
+        WHERE member_id = #{memberId}
+        ORDER BY reserved_at DESC, id DESC
+    </select>
+    
+    <select id="findWaitingByBookIdAndMemberId" resultMap="reservationResultMap">
+        SELECT id, book_id, member_id, reserved_at, status
+        FROM reservations
+        WHERE book_id = #{bookId}
+        AND member_id = #{memberId}
+        AND status = #{status}
+    </select>
+
+</mapper>
