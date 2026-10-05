@@ -15,11 +15,10 @@ public interface ReservationMapper {
 
      int insert(Reservation reservation);
 
-     Reservation findById(@Param("id") Long id);
-
      List<Reservation> findByMemberId(@Param("memberId") Long memberId);
 
      Reservation findWaitingByBookIdAndMemberId(
              @Param("bookId") Long bookId,
-             @Param("memberId") Long memberId);
+             @Param("memberId") Long memberId,
+             @Param("status") String status);
 }

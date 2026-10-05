@@ -37,7 +37,7 @@ public class ReservationController {
         return ResponseEntity.created(location).body(new ReservationResponse(created));
     }
     @GetMapping("/api/members/{id}/reservations")
-    public List<ReservationResponse> historyByMember(@PathVariable Long id) {
+    public List<ReservationResponse> listByMember(@PathVariable Long id) {
         return reservationService.findByMember(id).stream()
                 .map(ReservationResponse::new)
                 .toList();

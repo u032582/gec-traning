@@ -22,12 +22,6 @@
         VALUES (#{bookId}, #{memberId}, #{reservedAt}, #{status})
     </insert>
 
-    <select id="findById" resultMap="reservationResultMap">
-        SELECT id, book_id, member_id, reserved_at, status
-        FROM reservations
-        WHERE id = #{id}
-    </select>
-
     <select id="findByMemberId" resultMap="reservationResultMap">
         SELECT id, book_id, member_id, reserved_at, status
         FROM reservations
@@ -40,7 +34,7 @@
         FROM reservations
         WHERE book_id = #{bookId}
         AND member_id = #{memberId}
-        AND status = 'waiting'
+        AND status = #{status}
     </select>
 
 </mapper>

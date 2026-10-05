@@ -23,7 +23,6 @@ import com.example.training.common.BusinessRuleException;
 public class ReservationService {
 
     public static final String STATUS_WAITING = "waiting";
-    public static final String STATUS_CANCELED = "canceled";
 
     private final ReservationMapper reservationMapper;
     private final BookService bookService;
@@ -45,9 +44,9 @@ public class ReservationService {
     public Reservation reserve(ReservationRequest request, LocalDate today) {
         bookService.findById(request.getBookId());
         memberService.findById(request.getMemberId());
-        Reservation existingReservation = reservationMapper.findWaitingByBookIdAndMemberId(request.getBookId(), request.getMemberId());
+        Reservation existingReservation = reservationMapper.findWaitingByBookIdAndMemberId(request.getBookId(), request.getMemberId(), STATUS_WAITING);
         if (existingReservation != null) {
-            throw new BusinessRuleException("既に予約されています");
+            throw new BusinessRuleException("既に予約されています:bookId=" + request.getBookId() + ", memberId=" + request.getMemberId());
         }
 
         Reservation reservation = new Reservation();

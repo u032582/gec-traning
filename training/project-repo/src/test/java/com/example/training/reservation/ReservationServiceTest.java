@@ -55,11 +55,14 @@ class ReservationServiceTest {
 
         when(memberService.findById(1L)).thenReturn(new Member());
         when(bookService.findById(1L)).thenReturn(new Book());
-        when(reservationMapper.findWaitingByBookIdAndMemberId(1L, 1L)).thenReturn(null);
+        when(reservationMapper.findWaitingByBookIdAndMemberId(1L, 1L, ReservationService.STATUS_WAITING)).thenReturn(null);
         
-        Reservation result =reservationService.reserve(request, TODAY);
+        Reservation result = reservationService.reserve(request, TODAY);
 
-        assertThat(result.getStatus()).isEqualTo(reservationService.STATUS_WAITING);
+        assertThat(result.getBookId()).isEqualTo(1L);
+        assertThat(result.getMemberId()).isEqualTo(1L);
+        assertThat(result.getReservedAt()).isEqualTo(TODAY);
+        assertThat(result.getStatus()).isEqualTo(ReservationService.STATUS_WAITING);
 
         verify(reservationMapper).insert(any(Reservation.class));
     }
@@ -72,7 +75,7 @@ class ReservationServiceTest {
 
         when(memberService.findById(1L)).thenReturn(new Member());
         when(bookService.findById(1L)).thenReturn(new Book());
-        when(reservationMapper.findWaitingByBookIdAndMemberId(1L, 1L)).thenReturn(new Reservation());
+        when(reservationMapper.findWaitingByBookIdAndMemberId(1L, 1L, ReservationService.STATUS_WAITING)).thenReturn(new Reservation());
 
         assertThatThrownBy(() -> reservationService.reserve(request, TODAY)).isInstanceOf(BusinessRuleException.class);
 
